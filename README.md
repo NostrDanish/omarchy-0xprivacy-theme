@@ -8,6 +8,7 @@ Phosphor mainframe theme for this Omarchy box.
 - App-cover generator: run `/usr/bin/python3 ~/.config/omarchy/themes/0xprivacy/generate-app-icons.py` after installing/removing apps
 - Telegram: full 467-color `telegram/0xPrivacy-Phosphor.tdesktop-theme` bundle + matching phosphor-grid chat wallpaper; regenerate with `/usr/bin/python3 ~/.config/omarchy/themes/0xprivacy/generate-telegram-theme.py`
 - Keyboard RGB: 57,255,20
+- Optional screensaver bundle: animated 0xPrivacy attract mode + preview in `screensaver/`. After installing the theme, install the profile with `bash ~/.config/omarchy/themes/0xprivacy/screensaver/install.sh`; activation is separate and documented in `screensaver/README.md`.
 
 ```bash
 omarchy theme set 0xprivacy
