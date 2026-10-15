@@ -6,7 +6,7 @@ set -euo pipefail
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 ICON_SRC="$ROOT/icons/0xPrivacy-Phosphor"
 ICON_DEST="${XDG_DATA_HOME:-$HOME/.local/share}/icons/0xPrivacy-Phosphor"
-WALLPAPER="$ROOT/backgrounds/0xhermes.png"
+WALLPAPER="$ROOT/backgrounds/00-node.png"
 
 if [[ ! -d "$ICON_SRC" ]]; then
   printf 'Missing icon theme: %s\n' "$ICON_SRC" >&2
