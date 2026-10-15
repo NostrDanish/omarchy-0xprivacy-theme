@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""0xPrivacy — HACKER ATTRACT
+"""0xPrivacy — BREAK THE DIGITAL CAGE
 
-0xPrivacy hacker attract mode: black field, neon green matrix,
-glitch tears, skull mark, terminal chatter. Fills 2560x1080. Any key exits.
+Night-vision attract: a halftone peace hand inside a visor, cage bars that
+split, and the manifesto from 0xprivacy.online. Any key exits.
+
+Stays at or below 12 FPS. This chassis cooks if the saver paints harder.
 """
-
 from __future__ import annotations
 
 import math
@@ -12,7 +13,6 @@ import os
 import random
 import select
 import shutil
-import socket
 import sys
 import termios
 import time
@@ -28,466 +28,238 @@ CLEAR = "\033[2J"
 SYNC_B = "\033[?2026h"
 SYNC_E = "\033[?2026l"
 
-# 0xPrivacy / Hacker Vibes palette
-YEL = (57, 255, 20)      # neon green primary
-CYAN = (0, 255, 65)      # matrix green
-PINK = (255, 51, 51)     # alert red glitch
-WHITE = (200, 255, 200)
-DIMW = (0, 80, 20)
-BG_RGB = (10, 10, 10)
+NEON = (57, 255, 20)
+ROSE = (255, 46, 99)
+PALE = (199, 245, 206)
+DIM = (46, 92, 58)
+FOREST = (10, 72, 36)
+BG = (2, 8, 4)
 
-LOGO = [
-    "   #####   #   #  #####   #####    ###   #     #     #      #####   #     #  ",
-    "  #     #   # #   #    #  #    #    #    #     #    # #    #     #   #   #   ",
-    "  #     #    #    #    #  #    #    #    #     #   #   #   #          # #    ",
-    "  #     #   # #   #####   #####     #    #     #  #     #  #           #     ",
-    "  #     #  #   #  #       #   #     #     #   #   #######  #           #     ",
-    "  #     #         #       #    #    #      # #    #     #  #     #     #     ",
-    "   #####          #       #    #   ###      #     #     #   #####      #     ",
-]
-
-# 0xPrivacy skull mark (ASCII attract logo) — each row width 30
-MASK = [
-    "      ##################      ",
-    "   ########################   ",
-    "  ##########################  ",
-    " ####    ####    ####    #### ",
-    " ###  ########  ########  ### ",
-    " ###  ########  ########  ### ",
-    " ####    ####    ####    #### ",
-    "  ####                  ####  ",
-    "   ####      ##      ####     ",
-    "    #####  ######  #####      ",
-    "     #### ## ## ## ####       ",
-    "      ###  ##  ##  ###        ",
-    "       ## ###  ### ##         ",
-    "        ## ##  ## ##          ",
-    "         ##      ##           ",
-]
-
-STATUS = (
-    "mesh // ENCRYPTED",
-    "tor circuits: hot",
-    "0xprivacy online",
-    "we own the night",
-    "dead drops live",
-    "follow the rabbit",
-    "operate // ghost",
-    "profiler: null",
-    "cameras: spoofed",
-    "exfil channel ready",
+HAND = (
+    "                 ▄▄██▄▄              ▄▄██▄▄                 ",
+    "               ▄████████▄          ▄████████▄               ",
+    "              ████▓▓▓▓████        ████▓▓▓▓████              ",
+    "              ███▓▓▓▓▓▓███        ███▓▓▓▓▓▓███              ",
+    "              ███▓▓▓▓▓▓███        ███▓▓▓▓▓▓███              ",
+    "              ███▓▓▓▓▓▓███        ███▓▓▓▓▓▓███              ",
+    "               ▀██▓▓▓▓██▀          ▀██▓▓▓▓██▀               ",
+    "                 ▀█▓▓█▀              ▀█▓▓█▀                 ",
+    "                   ██                  ██                   ",
+    "                    ▀██▄            ▄██▀                    ",
+    "                      ▀████████████▀                       ",
+    "                       ▄██████████▄                        ",
+    "                     ▄██████████████▄                      ",
+    "                   ▄███▓▓▓▓▓▓▓▓▓▓███▄                      ",
+    "                  ████▓▓▓▓▓▓▓▓▓▓▓▓████                     ",
+    "                 ███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████                    ",
+    "                 ███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████                   ",
+    "                  ▀███▓▓▓▓▓▓▓▓▓▓▓▓███▀                    ",
+    "                    ▀██████████████▀                      ",
+    "                      ▀████████████▀                       ",
+    "                        ▀████████▀                         ",
 )
 
-CHATTER = (
-    "> probe mesh.gateway ... ACK",
-    "> dump /var/keys ... 0xPRIV",
-    "> spoof profiler.id = null",
-    "> inject dead_drop://loop",
-    "> camera.grid[12..48] owned",
-    "> traffic.lights = chaos",
-    "> broadcast 0xprivacy://invite",
-    "> encrypt tunnel // onion",
-    "> wipe logs --force",
-    "> ping privacy.mesh ... LIVE",
-    "> unlock ghost.exe",
-    "> shadow mode: engaged",
+LINES = (
+    "YOUR KEYS. YOUR DATA. YOUR FREEDOM.",
+    "BREAK THE DIGITAL CAGE",
+    "NO TRACKERS. NO KYC. NO EXCEPTIONS.",
+    "TOR   MONERO   NOSTR   SIMPLEX   TAILS   NYM   IPFS",
+    "WE ARE DONE BEING WATCHED.",
 )
-
-GLYPHS = "01ABCDEF#@$%&*"
-TAGS = (
-    "WE OWN THE NIGHT",
-    "FOLLOW THE RABBIT",
-    "PRIVACY IS A RIGHT",
-    "OPERATE // 0xPRIVACY",
-    "STAY GHOST",
-    "BREACH THE SYSTEM",
-)
+GLYPHS = "01"
 
 
 def key_waiting() -> bool:
     return bool(select.select([sys.stdin], [], [], 0)[0])
 
 
-def fg(r: int, g: int, b: int) -> str:
-    return f"\033[38;2;{int(r)};{int(g)};{int(b)}m"
+def fg(rgb: tuple[int, int, int]) -> str:
+    return f"\033[38;2;{rgb[0]};{rgb[1]};{rgb[2]}m"
 
 
-def bg(r: int, g: int, b: int) -> str:
-    return f"\033[48;2;{int(r)};{int(g)};{int(b)}m"
+def bg(rgb: tuple[int, int, int]) -> str:
+    return f"\033[48;2;{rgb[0]};{rgb[1]};{rgb[2]}m"
 
 
-def lerp(a: float, b: float, t: float) -> float:
-    return a + (b - a) * t
+def q(rgb: tuple[int, int, int], step: int = 32) -> tuple[int, int, int]:
+    return (rgb[0] - rgb[0] % step, rgb[1] - rgb[1] % step, rgb[2] - rgb[2] % step)
 
 
-def mix(c1: tuple[int, int, int], c2: tuple[int, int, int], t: float) -> tuple[int, int, int]:
-    t = 0.0 if t < 0 else 1.0 if t > 1 else t
-    return (
-        int(lerp(c1[0], c2[0], t)),
-        int(lerp(c1[1], c2[1], t)),
-        int(lerp(c1[2], c2[2], t)),
-    )
+FPS = min(12.0, float(os.environ.get("OMARCHY_SAVER_FPS", "12") or 12))
 
 
-def q(c: tuple[int, int, int], step: int = 32) -> tuple[int, int, int]:
-    """Snap RGB so ANSI runs collapse (less CPU in Python + foot)."""
-    return (c[0] - c[0] % step, c[1] - c[1] % step, c[2] - c[2] % step)
-
-
-FPS = float(os.environ.get("OMARCHY_SAVER_FPS", "12"))
-
-
-class PrivacyAttract:
+class CageBreak:
     def __init__(self) -> None:
         self.w = 0
         self.h = 0
         self.t = 0.0
         self.tick = 0
-        self.rng = random.Random(0x0A71AC)
-        self.columns: list[dict] = []
-        self.glitch_rows: list[dict] = []
-        self.chatter: list[dict] = []
-        self._typed = 0
-        self._tag = TAGS[0]
-        self._status_i = 0
-        self._status_age = 0.0
-        self._host = socket.gethostname().split(".")[0][:16]
-        self._scan = 0.0
-        self._rgb_split = 0.0
-        self._flash = 0.0
-        self._mask_pulse = 0.0
-        self.skyline: list[int] = []
-        self.sparks: list[dict] = []
-        self._bg: list[list[tuple[int, int, int]]] = []
-        self._cells: list[list[tuple[str, tuple[int, int, int], tuple[int, int, int]]]] = []
+        self.rng = random.Random(0x0A71)
+        self.line_i = 0
+        self.line_age = 0.0
+        self.scroll = 0.0
+        self.rain: list[dict] = []
+        self._wash: list[tuple[int, int, int]] = []
 
     def resize(self, w: int, h: int) -> None:
-        w = max(60, w)
-        h = max(20, h)
+        w, h = max(80, w), max(24, h)
         if w == self.w and h == self.h:
             return
         self.w, self.h = w, h
-        # Full-field rain: dense edges, lighter center (mask stays readable)
-        self.columns = []
-        for x in range(w):
-            cx = abs(x - w * 0.5) / (w * 0.5)
-            # density rises toward edges; always some mid rain
-            if self.rng.random() > (0.14 + 0.42 * cx):
+        self._wash = []
+        cy = (h - 1) / 2
+        for y in range(h):
+            ny = abs(y - cy) / max(1.0, cy)
+            self._wash.append(q((int(2 + 8 * (1 - ny)), int(8 + 22 * (1 - ny * 0.35)), int(4 + 8 * (1 - ny)))))
+        self.rain = []
+        for x in range(8, w - 8, 3):
+            if self.rng.random() > 0.55:
                 continue
-            layer = self.rng.choice((0, 0, 1, 1, 2))  # parallax depth
-            self.columns.append(
+            self.rain.append(
                 {
                     "x": x,
                     "y": self.rng.uniform(-h, h),
-                    "speed": (0.2, 0.55, 1.15)[layer] * self.rng.uniform(0.7, 1.3),
-                    "length": (6, 12, 20)[layer] + self.rng.randint(0, 6),
-                    "seed": self.rng.randrange(1 << 30),
-                    "tone": self.rng.choice(("y", "y", "c", "c", "d", "d")),
-                    "layer": layer,
+                    "speed": self.rng.uniform(6, 16),
+                    "length": self.rng.randint(4, 10),
+                    "seed": self.rng.randrange(1 << 20),
                 }
             )
-        # City skyline heights across bottom
-        self.skyline = []
-        hgt = self.rng.randint(3, 8)
-        for x in range(w):
-            if self.rng.random() < 0.08:
-                hgt = self.rng.randint(2, max(3, h // 5))
-            elif self.rng.random() < 0.2:
-                hgt = max(2, hgt + self.rng.choice((-1, 0, 1)))
-            self.skyline.append(hgt)
-        self.sparks = []
-        self.glitch_rows = []
-        self.chatter = []
-        for i in range(min(5, h // 8)):
-            self.chatter.append(
-                {
-                    "text": self.rng.choice(CHATTER),
-                    "y": 2 + i * 2,
-                    "x": self.rng.randint(2, max(2, w // 5)),
-                    "age": self.rng.uniform(0, 3),
-                    "life": self.rng.uniform(2.5, 5.0),
-                }
-            )
-        self._rebuild_static()
 
-    def _rebuild_static(self) -> None:
-        """Vignette / CRT wash once per resize — not per frame."""
-        w, h = self.w, self.h
-        cx0, cy0 = (w - 1) * 0.5, (h - 1) * 0.5
-        bg: list[list[tuple[int, int, int]]] = []
-        cells: list[list[tuple[str, tuple[int, int, int], tuple[int, int, int]]]] = []
-        for y in range(h):
-            depth = y / max(1, h - 1)
-            base = mix(BG_RGB, (8, 18, 8), 0.35 * depth)
-            base = mix(base, (4, 20, 10), 0.14 * (1.0 - depth))
-            if y % 2 == 0:
-                base = mix(base, (0, 0, 0), 0.22)
-            row_bg: list[tuple[int, int, int]] = []
-            row_cells: list[tuple[str, tuple[int, int, int], tuple[int, int, int]]] = []
-            for x in range(w):
-                nx = (x - cx0) / max(1.0, cx0)
-                ny = (y - cy0) / max(1.0, cy0)
-                vig = min(1.0, (nx * nx + ny * ny) * 0.55)
-                wash = q(mix(base, (0, 0, 0), 0.45 * vig))
-                row_bg.append(wash)
-                row_cells.append((" ", DIMW, wash))
-            bg.append(row_bg)
-            cells.append(row_cells)
-        self._bg = bg
-        self._cells = cells
+    def step(self, dt: float) -> None:
+        self.t += dt
+        self.tick += 1
+        self.scroll = (self.scroll + dt * 8) % 80
+        self.line_age += dt
+        if self.line_age > 3.4:
+            self.line_age = 0.0
+            self.line_i = (self.line_i + 1) % len(LINES)
+        for col in self.rain:
+            col["y"] += col["speed"] * dt
+            if col["y"] - col["length"] > self.h:
+                col["y"] = -col["length"]
+                col["seed"] = self.rng.randrange(1 << 20)
 
-    def _tone_color(self, tone: str, bright: float) -> tuple[int, int, int]:
-        if tone == "y":
-            base = YEL
-        elif tone == "c":
-            base = CYAN
-        else:
-            base = DIMW
-        return q(mix(BG_RGB, base, 0.2 + 0.8 * bright))
+    def _inside_visor(self, x: int, y: int) -> float:
+        cx, cy = (self.w - 1) / 2, (self.h - 1) * 0.46
+        rx, ry = self.w * 0.34, self.h * 0.38
+        nx = (x - cx) / max(1.0, rx)
+        ny = (y - cy) / max(1.0, ry)
+        return nx * nx + ny * ny
 
     def paint(self) -> str:
         w, h = self.w, self.h
-        cells = self._cells
-        wash = self._bg
-        # Reset from cached wash — no per-frame hypot/vignette.
+        cells = [[" "] * w for _ in range(h)]
+        ink: list[tuple[int, int, int]] = [DIM] * (w * h)
+        back: list[tuple[int, int, int]] = [BG] * (w * h)
+
+        def put(x: int, y: int, ch: str, color: tuple[int, int, int], wash: tuple[int, int, int] | None = None) -> None:
+            if 0 <= x < w and 0 <= y < h and ch:
+                cells[y][x] = ch
+                ink[y * w + x] = color
+                if wash is not None:
+                    back[y * w + x] = wash
+
         for y in range(h):
-            brow = wash[y]
-            row = cells[y]
+            wash = self._wash[y]
+            row = y * w
             for x in range(w):
-                row[x] = (" ", DIMW, brow[x])
+                back[row + x] = wash
 
-        # Scanline: one cheap band instead of mixing every cell
-        scan_y = int((self._scan % 1.0) * h)
-        for y in range(max(0, scan_y - 1), min(h, scan_y + 2)):
-            row = cells[y]
+        for y in range(h):
             for x in range(w):
-                ch, f, b = row[x]
-                row[x] = (ch, f, q(mix(b, YEL, 0.08)))
+                dist = self._inside_visor(x, y)
+                if dist < 0.86:
+                    back[y * w + x] = (4, 16, 8) if y % 2 else (2, 12, 6)
+                elif 0.86 <= dist <= 1.05:
+                    mark = ROSE if abs(x - w / 2) < 2 and y < h * 0.22 else NEON
+                    put(x, y, "•" if dist > 0.96 else "·", mark)
 
-        # Perspective city grid (floor rushing toward horizon)
-        horizon = int(h * 0.62)
-        for y in range(horizon, h - 2):
-            t = (y - horizon) / max(1, h - horizon - 2)
-            # vanishing-point verticals
-            spacing = max(2, int(lerp(28, 4, t)))
-            mid = w // 2
-            # horizontal road lines
-            if int((y + int(self.t * 18)) % max(2, int(lerp(10, 2, t)))) == 0:
-                for x in range(w):
-                    ch, f, b = cells[y][x]
-                    cells[y][x] = (ch, f, mix(b, CYAN, 0.08 + 0.12 * t))
-            for k in range(-40, 41):
-                x = mid + k * spacing
-                if 0 <= x < w:
-                    ch, f, b = cells[y][x]
-                    if ch in (" ", ".", ":", "/"):
-                        cells[y][x] = ("|", mix(BG_RGB, CYAN, 0.15 + 0.35 * t), b)
-
-        # Skyline silhouette with window blinks
-        if self.skyline:
-            for x, bh in enumerate(self.skyline[:w]):
-                for dy in range(bh):
-                    y = h - 3 - dy
-                    if y < 0:
-                        continue
-                    win = ((x * 19 + dy * 7 + self.tick // 12) % 11) == 0
-                    if dy == bh - 1:
-                        cells[y][x] = ("^", mix(BG_RGB, YEL, 0.35), mix(BG_RGB, (10, 22, 10), 0.5))
-                    elif win:
-                        glow = YEL if (x + dy + self.tick // 20) % 5 else CYAN
-                        cells[y][x] = ("+", mix(BG_RGB, glow, 0.55), mix(BG_RGB, glow, 0.12))
-                    else:
-                        cells[y][x] = ("#", mix(BG_RGB, DIMW, 0.55), mix(BG_RGB, (16, 16, 18), 0.7))
-
-        # Far + mid + near glyph rain (parallax)
-        for col in self.columns:
+        for col in self.rain:
             x = col["x"]
-            if x >= w:
-                continue
-            layer = col.get("layer", 1)
-            head = col["y"]
-            dim_mid = 0.55 if (w * 0.32 < x < w * 0.68) else 1.0
+            seed = col["seed"]
             for i in range(col["length"]):
-                y = int(head - i)
-                if 0 <= y < h - 3:
-                    bright = max(0.08, 1.0 - i / col["length"]) * dim_mid
-                    if layer == 0:
-                        bright *= 0.35
-                    elif layer == 2:
-                        bright = min(1.0, bright * 1.15)
-                    if i == 0:
-                        bright = min(1.0, bright + 0.25)
-                    ch = GLYPHS[(col["seed"] + self.tick + i * 7) % len(GLYPHS)]
-                    c = self._tone_color(col["tone"], bright)
-                    if i == 0 and layer >= 1:
-                        c = WHITE if col["tone"] == "y" else CYAN
-                    old_ch, _, b = cells[y][x]
-                    # don't stomp skyline solids too hard
-                    if old_ch == "#" and y > h - 12:
-                        continue
-                    cells[y][x] = (ch, c, b)
-
-        # Floating sparks / packet blips
-        for s in self.sparks:
-            x, y = int(s["x"]), int(s["y"])
-            if 0 <= x < w and 0 <= y < h:
-                cells[y][x] = ("*", mix(BG_RGB, s["color"], s["life"]), cells[y][x][2])
-                if 0 <= x + 1 < w:
-                    cells[y][x + 1] = ("-", mix(BG_RGB, s["color"], s["life"] * 0.5), cells[y][x + 1][2])
-
-        # Network nodes + pulsing links (brighter)
-        step_x = max(6, w // 26)
-        step_y = max(3, h // 14)
-        for y in range(2, horizon, step_y):
-            for x in range(2, w - 2, step_x):
-                pulse = 0.35 + 0.65 * abs(math.sin(self.t * 1.6 + x * 0.05 + y * 0.1))
-                if pulse < 0.45:
+                y = int(col["y"]) - i
+                if not (0 <= y < h) or self._inside_visor(x, y) > 0.8:
                     continue
-                ch, f, b = cells[y][x]
-                if ch in (" ", ".", ":", "/"):
-                    cells[y][x] = ("+", mix(BG_RGB, CYAN, 0.5 * pulse), mix(b, CYAN, 0.08 * pulse))
+                put(x, y, GLYPHS[(seed + i) & 1], PALE if i == 0 else FOREST)
 
-        for y in range(3, horizon, step_y):
-            phase = (self.t * 70 + y * 7) % (w + 60) - 30
-            for dx in range(18):
-                x = int(phase + dx)
-                if 0 <= x < w:
-                    ch, f, b = cells[y][x]
-                    if ch in (" ", ".", ":", "/", "+", "|"):
-                        cells[y][x] = ("=", mix(BG_RGB, CYAN, 0.6 - dx * 0.03), b)
-
-        # Terminal chatter (left column)
-        for c in self.chatter:
-            y = int(c["y"])
-            if not (0 <= y < h - 3):
+        gap = 3 + int(2.5 * (1 + math.sin(self.t * 0.7)))
+        cy = int(h * 0.46)
+        for x in (3, 7, 11, w - 4, w - 8, w - 12):
+            if not (0 <= x < w):
                 continue
-            fade = min(1.0, c["life"] / 1.2)
-            text = c["text"]
-            for i, ch in enumerate(text):
-                xx = int(c["x"]) + i
-                if 0 <= xx < w // 3:
-                    cells[y][xx] = (ch, mix(BG_RGB, CYAN, 0.35 + 0.55 * fade), cells[y][xx][2])
+            for y in range(2, h - 2):
+                if abs(y - cy) <= gap:
+                    if abs(y - cy) == gap:
+                        put(x, y, "━", ROSE)
+                    continue
+                put(x, y, "│", DIM if y % 2 else FOREST)
 
-        # 0xPrivacy skull — center stage
-        mask_w = len(MASK[0])
-        mask_h = len(MASK)
-        mx = max(0, (w - mask_w) // 2)
-        my = max(1, h // 2 - mask_h // 2 - 4)
-        pulse = 0.72 + 0.28 * abs(math.sin(self.t * 2.2))
-        if self._flash > 0:
-            pulse = 1.0
-        for j, line in enumerate(MASK):
-            yy = my + j
-            if yy >= h:
-                break
-            for i, ch in enumerate(line):
-                xx = mx + i
-                if xx < w and ch != " ":
-                    # hollow eyes / nose stay empty (spaces in art)
-                    col = mix(BG_RGB, YEL, pulse)
-                    # jaw a touch dimmer
-                    if j >= mask_h - 3:
-                        col = mix(BG_RGB, YEL, pulse * 0.85)
-                    if self._rgb_split > 0 and ((i + j + self.tick) % 7) == 0:
-                        cells[yy][min(w - 1, xx + 1)] = (ch, PINK, BG_RGB)
-                        cells[yy][max(0, xx - 1)] = (ch, CYAN, BG_RGB)
-                    cells[yy][xx] = (ch, col, mix(BG_RGB, YEL, 0.12 * pulse))
+        split = int(4 + 6 * (0.5 + 0.5 * math.sin(self.t * 0.9)))
+        chain_y = max(2, int(h * 0.16))
+        left, right = "════○", "○════"
+        origin = w // 2 - split - len(left)
+        for i, ch in enumerate(left):
+            put(origin + i, chain_y, ch, ROSE if ch == "○" else NEON)
+        for i, ch in enumerate(right):
+            put(w // 2 + split + i, chain_y, ch, ROSE if ch == "○" else NEON)
+        if split > 6 and (self.tick // 3) % 2 == 0:
+            put(w // 2, chain_y, "×", ROSE)
 
-        # LOGO wordmark above mask
-        logo_y = max(1, my - len(LOGO) - 1)
-        logo_x = max(0, (w - len(LOGO[0])) // 2)
-        for j, line in enumerate(LOGO):
-            yy = logo_y + j
-            if yy >= h or yy < 0:
+        rise = int(math.sin(self.t * 0.6) * 1.5)
+        hand_y = max(3, (h - len(HAND)) // 2 + 1 + rise)
+        hand_x = max(0, (w - len(HAND[0])) // 2)
+        phase = self.tick // 2
+        for j, line in enumerate(HAND):
+            y = hand_y + j
+            if not (0 <= y < h - 2):
                 continue
             for i, ch in enumerate(line):
-                xx = logo_x + i
-                if 0 <= xx < w and ch != " ":
-                    if self._rgb_split > 0 and j == int(self.t * 10) % len(LOGO):
-                        cells[yy][min(w - 1, xx + 1)] = (ch, PINK, BG_RGB)
-                        cells[yy][max(0, xx - 1)] = (ch, CYAN, BG_RGB)
-                    cells[yy][xx] = (ch, YEL, mix(BG_RGB, YEL, 0.07))
+                if ch == " ":
+                    continue
+                x = hand_x + i
+                if ch == "▓":
+                    put(x, y, "▓" if (i + j + phase) % 3 else "░", NEON, (6, 28, 10))
+                else:
+                    put(x, y, ch, PALE if (i + j) % 11 else NEON)
 
-        # Typewriter tagline under mask
-        tag_y = my + mask_h + 1
-        typed = self._tag[: self._typed]
-        tag_x = max(0, (w - len(self._tag)) // 2)
-        if 0 <= tag_y < h:
-            for i, ch in enumerate(typed):
-                xx = tag_x + i
-                if 0 <= xx < w:
-                    cells[tag_y][xx] = (ch, WHITE, BG_RGB)
-            cx = tag_x + len(typed)
-            if cx < w and (self.tick // 7) % 2 == 0:
-                cells[tag_y][cx] = ("#", YEL, BG_RGB)
+        title = "0xPRIVACY"
+        tx = (w - len(title)) // 2
+        ty = max(1, hand_y - 2)
+        for i, ch in enumerate(title):
+            put(tx + i, ty, ch, ROSE if i < 2 else NEON)
 
-        # Invite strip
-        invite = "[ PRESS ANY KEY // 0xPRIVACY ]"
-        iy = tag_y + 2
-        ix = max(0, (w - len(invite)) // 2)
-        if 0 <= iy < h and (int(self.t * 2) % 2 == 0 or self._flash > 0):
-            for i, ch in enumerate(invite):
-                xx = ix + i
-                if 0 <= xx < w:
-                    cells[iy][xx] = (ch, mix(BG_RGB, YEL, 0.85), mix(BG_RGB, YEL, 0.08))
+        line = LINES[self.line_i]
+        ly = min(h - 3, hand_y + len(HAND) + 1)
+        lx = max(1, (w - len(line)) // 2)
+        color = ROSE if "BREAK" in line or "DONE" in line else PALE
+        for i, ch in enumerate(line):
+            put(lx + i, ly, ch, color)
 
-        # Status bar
-        status = STATUS[self._status_i]
-        meta = f"{self._host} | 0xprivacy | {status} | mesh:LIVE"
-        by = h - 2
-        bx = max(0, (w - len(meta)) // 2)
-        if by > 0:
-            for i, ch in enumerate(meta):
-                xx = bx + i
-                if 0 <= xx < w:
-                    col = DIMW
-                    if "0xprivacy" in meta[max(0, i - 8) : i + 1]:
-                        col = YEL
-                    elif "LIVE" in meta[max(0, i - 3) : i + 1]:
-                        col = CYAN
-                    cells[by][xx] = (ch, col, mix(BG_RGB, YEL, 0.06))
-
-        # Top HUD
-        hud = f"0xPRIVACY // HACKER ATTRACT  t={self.t:06.1f}  fps~{int(FPS)}"
-        for i, ch in enumerate(hud[: w - 4]):
-            cells[0][2 + i] = (ch, mix(BG_RGB, DIMW, 0.7), mix(BG_RGB, YEL, 0.04))
-
-        # Pink glitch tear rows (chromatic shift)
-        for g in self.glitch_rows:
-            y = g["y"]
-            if not (0 <= y < h):
-                continue
-            shift = g["shift"]
-            for x in range(w):
-                src = (x - shift) % w
-                ch, f, b = cells[y][src]
-                cells[y][x] = (ch, mix(f, PINK, 0.7), mix(b, PINK, 0.18))
-
-        # Side accent bars — green / alert red stripe
-        for y in range(h):
-            cells[y][0] = ("|", CYAN, BG_RGB)
-            cells[y][1] = ("|", mix(BG_RGB, CYAN, 0.5), BG_RGB)
-            cells[y][w - 1] = ("|", PINK, BG_RGB)
-            cells[y][w - 2] = ("|", mix(BG_RGB, PINK, 0.5), BG_RGB)
-
-        # Invite pulse is logo-only — skip full-frame mix (was O(w*h) every flash)
+        footer = "ANY KEY EXITS   ·   0xPRIVACY.ONLINE   ·   BREAK THE DIGITAL CAGE"
+        arsenal = "  TOR * MONERO * NOSTR * SIMPLEX * SIGNAL * TAILS * NYM * IPFS * WHONIX *  "
+        start = int(self.scroll) % len(arsenal)
+        band = (arsenal + arsenal)[start : start + max(0, w - 4)]
+        for i, ch in enumerate(band):
+            put(2 + i, h - 1, ch, ROSE if ch == "*" else DIM)
+        for i, ch in enumerate(footer[: max(0, w - 2)]):
+            put(1 + i, h - 2, ch, DIM)
 
         out = [SYNC_B, HOME]
         for y in range(h):
-            prev_f = None
-            prev_b = None
+            prev_f = prev_b = None
             parts: list[str] = []
+            row = y * w
             for x in range(w):
-                ch, f, b = cells[y][x]
-                f = q(f)
-                b = q(b)
-                if f != prev_f:
-                    parts.append(fg(*f))
-                    prev_f = f
-                if b != prev_b:
-                    parts.append(bg(*b))
-                    prev_b = b
-                parts.append(ch)
+                color = ink[row + x]
+                wash = back[row + x]
+                if color != prev_f:
+                    parts.append(fg(color))
+                    prev_f = color
+                if wash != prev_b:
+                    parts.append(bg(wash))
+                    prev_b = wash
+                parts.append(cells[y][x])
             parts.append(RESET)
             if y < h - 1:
                 parts.append("\n")
@@ -495,135 +267,46 @@ class PrivacyAttract:
         out.append(SYNC_E)
         return "".join(out)
 
-    def step(self, dt: float) -> None:
-        self.t += dt
-        self.tick += 1
-        self._scan = (self._scan + dt * 0.28) % 1.0
-        if self._rgb_split > 0:
-            self._rgb_split = max(0.0, self._rgb_split - dt * 3)
-        if self._flash > 0:
-            self._flash = max(0.0, self._flash - dt * 2.5)
-
-        for col in self.columns:
-            col["y"] += col["speed"] * (dt * 34)
-            if col["y"] - col["length"] > self.h:
-                col["y"] = -col["length"]
-                col["seed"] = self.rng.randrange(1 << 30)
-                col["tone"] = self.rng.choice(("y", "y", "c", "c", "d"))
-
-        # Packet sparks drifting across the field
-        for s in self.sparks:
-            s["x"] += s["vx"] * dt
-            s["y"] += s["vy"] * dt
-            s["life"] -= dt * 0.8
-        self.sparks = [s for s in self.sparks if s["life"] > 0 and -2 <= s["x"] < self.w + 2]
-        if len(self.sparks) < 8 and self.rng.random() < 0.06:
-            self.sparks.append(
-                {
-                    "x": float(self.rng.randint(0, max(1, self.w - 1))),
-                    "y": float(self.rng.randint(1, max(2, int(self.h * 0.55)))),
-                    "vx": self.rng.uniform(-40, 40),
-                    "vy": self.rng.uniform(-6, 14),
-                    "life": self.rng.uniform(0.4, 1.2),
-                    "color": self.rng.choice((YEL, CYAN, PINK)),
-                }
-            )
-
-        if self._typed < len(self._tag) and self.tick % 2 == 0:
-            self._typed += 1
-        elif self._typed >= len(self._tag) and self.tick % 380 == 0:
-            self._typed = 0
-            self._tag = self.rng.choice(TAGS)
-            self._flash = 0.4
-
-        self._status_age += dt
-        if self._status_age > 2.2:
-            self._status_age = 0.0
-            self._status_i = (self._status_i + 1) % len(STATUS)
-
-        # Chatter lifecycle
-        for c in self.chatter:
-            c["age"] += dt
-            c["life"] -= dt
-        self.chatter = [c for c in self.chatter if c["life"] > 0]
-        if len(self.chatter) < 4 and self.rng.random() < 0.05:
-            self.chatter.append(
-                {
-                    "text": self.rng.choice(CHATTER),
-                    "y": self.rng.randint(2, max(3, self.h - 5)),
-                    "x": self.rng.randint(2, max(3, self.w // 6)),
-                    "age": 0.0,
-                    "life": self.rng.uniform(2.0, 4.5),
-                }
-            )
-
-        self.glitch_rows = [g for g in self.glitch_rows if g["life"] > 0]
-        for g in self.glitch_rows:
-            g["life"] -= dt
-        if self.rng.random() < 0.03:
-            self.glitch_rows.append(
-                {
-                    "y": self.rng.randint(1, max(1, self.h - 3)),
-                    "shift": self.rng.choice((-5, -3, -2, -1, 1, 2, 3, 5, 7)),
-                    "life": self.rng.uniform(0.06, 0.32),
-                }
-            )
-            self._rgb_split = 0.4
-
 
 def main() -> int:
     cols = int(os.environ.get("COLUMNS") or 0)
     rows = int(os.environ.get("LINES") or 0)
     try:
-        sz = shutil.get_terminal_size(fallback=(cols or 200, rows or 60))
-        cols, rows = sz.columns, sz.lines
+        size = shutil.get_terminal_size(fallback=(cols or 160, rows or 42))
+        cols, rows = size.columns, size.lines
     except Exception:
-        cols = cols or 200
-        rows = rows or 60
+        cols, rows = cols or 160, rows or 42
 
-    scene = PrivacyAttract()
+    scene = CageBreak()
     scene.resize(cols, rows)
-
     fd = sys.stdin.fileno()
     old = None
     is_tty = sys.stdin.isatty()
     if is_tty:
         old = termios.tcgetattr(fd)
         tty.setcbreak(fd)
-
-    sys.stdout.write(ALT_ON + HIDE + CLEAR + HOME + bg(*BG_RGB))
+    sys.stdout.write(ALT_ON + HIDE + CLEAR + HOME + bg(BG))
     sys.stdout.flush()
-
     try:
-        target_dt = 1.0 / max(6.0, FPS)
+        target = 1.0 / max(6.0, FPS)
         last = time.perf_counter()
         while True:
             if is_tty and key_waiting():
                 while key_waiting():
                     os.read(fd, 64)
                 break
-            if scene.tick % 20 == 0:
-                try:
-                    sz = shutil.get_terminal_size()
-                    scene.resize(max(sz.columns, cols), max(sz.lines, rows))
-                except Exception:
-                    pass
-
             now = time.perf_counter()
             dt = min(0.12, now - last)
             last = now
             scene.step(dt)
             sys.stdout.write(scene.paint())
             sys.stdout.flush()
-
-            spent = time.perf_counter() - now
-            wait = target_dt - spent
+            wait = target - (time.perf_counter() - now)
             if wait > 0.004:
-                if is_tty:
-                    if select.select([sys.stdin], [], [], wait)[0]:
-                        os.read(fd, 64)
-                        break
-                else:
+                if is_tty and select.select([sys.stdin], [], [], wait)[0]:
+                    os.read(fd, 64)
+                    break
+                if not is_tty:
                     time.sleep(wait)
     finally:
         if old is not None:

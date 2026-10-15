@@ -107,7 +107,9 @@ def pixbuf_to_image(path: Path) -> Image.Image:
         red, green, blue, alpha = raw_pixels[offset : offset + 4]
         luminance = (2126 * red + 7152 * green + 722 * blue) / 10000 / 255
         level = int(round(255 * (luminance ** 0.65)))
-        mapped.append((round(57 * level / 255), level, round(20 * level / 255), alpha))
+        # Duotone: darker ink is rose, brighter ink is neon green.
+        color = (255, 46, 99) if luminance < 0.42 else (57, 255, 20)
+        mapped.append((round(color[0] * level / 255), round(color[1] * level / 255), round(color[2] * level / 255), alpha))
     image.putdata(mapped)
     return image
 
@@ -155,6 +157,9 @@ def make_cover(source: Path | None, app_name: str, icon: str) -> Image.Image:
     x = (256 - logo.width) // 2
     y = (256 - logo.height) // 2
     canvas.alpha_composite(logo, (x, y))
+    draw = ImageDraw.Draw(canvas)
+    draw.rounded_rectangle((10, 10, 245, 245), radius=28, outline=PHOSPHOR, width=4)
+    draw.rectangle((18, 18, 46, 238), fill=(255, 46, 99, 255))
     return canvas
 
 

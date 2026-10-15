@@ -22,26 +22,26 @@ UPSTREAM_URL = (
     f"{UPSTREAM_COMMIT}/Telegram/Resources/night-green.tdesktop-theme"
 )
 
-# 0xPrivacy theme colors (colors.toml) plus readable phosphor/semantic shades.
-BG = "#050805"
-BG_DARK = "#020302"
-BG_SURFACE = "#0c140c"
-BG_HOVER = "#102010"
-BG_SELECTED = "#0a2a0a"
-BG_SELECTED_HI = "#1a4a1a"
-BG_RED = "#301010"
-TEXT = "#c8ffc8"
-TEXT_BRIGHT = "#eaffea"
-TEXT_MUTED = "#6b8a6b"
-TEXT_DISABLED = "#3e5a3e"
+# 0xPrivacy dark-web roles: neon green, forest-green depth, rose-red signals.
+BG = "#020804"
+BG_DARK = "#010402"
+BG_SURFACE = "#09180e"
+BG_HOVER = "#0e2114"
+BG_SELECTED = "#12381f"
+BG_SELECTED_HI = "#1a4929"
+BG_RED = "#3a0c1a"
+TEXT = "#c7f5ce"
+TEXT_BRIGHT = "#f2fff4"
+TEXT_MUTED = "#63856b"
+TEXT_DISABLED = "#3d5c44"
 ACCENT = "#39ff14"
-ACCENT_BRIGHT = "#7cff7c"
-ACCENT_DEEP = "#1a6b1a"
-ACCENT_CYAN = "#00ffc8"
-ACCENT_YELLOW = "#c8ff00"
-ACCENT_YELLOW_BRIGHT = "#ffff99"
-RED = "#ff3333"
-RED_BRIGHT = "#ff5555"
+ACCENT_BRIGHT = "#83ff60"
+ACCENT_DEEP = "#15512c"
+ACCENT_GREEN = "#2bbf68"
+ACCENT_LIME = "#a8ff45"
+ACCENT_LIME_BRIGHT = "#c1ff6b"
+RED = "#ff2e63"
+RED_BRIGHT = "#ff7390"
 
 LINE_RE = re.compile(r"^(\s*)([A-Za-z][A-Za-z0-9_]*)\s*:\s*([^;]+)(;.*)$")
 
@@ -88,8 +88,8 @@ MUTED_FG_EXACT = {
     "emojiIconFg", "sideBarTextFg", "sideBarIconFg", "overviewCheckBorder",
 }
 
-USERPIC = [ACCENT, ACCENT_CYAN, ACCENT_YELLOW, ACCENT_BRIGHT,
-           "#00ff41", "#00aa66", TEXT, "#ffff99"]
+USERPIC = [ACCENT, ACCENT_GREEN, ACCENT_LIME, ACCENT_BRIGHT,
+           "#0b6530", "#2bbf68", TEXT, "#ff6688"]
 FALLBACK_KEYS: list[str] = []
 
 
@@ -99,17 +99,17 @@ def color_for(key: str, original: str) -> str:
     if key == "imageBgTransparent":
         return "#ffffff"
 
-    # Semantic warning/error states retain their recognizable non-green meaning.
+    # Semantic warning/error states use rose-red rather than green.
     if any(tag in key for tag in ("Error", "Missed", "RedCorner", "reportSpam")) or key.startswith("attentionButton") or key.startswith("callHangup"):
         if "Bg" in key:
-            return BG_RED if "Ripple" not in key else "#ff333344"
+            return BG_RED if "Ripple" not in key else "#ff2e6344"
         return RED_BRIGHT if "Over" in key or "Ripple" in key else RED
     if "YellowCorner" in key:
-        return ACCENT_YELLOW_BRIGHT
+        return ACCENT_LIME_BRIGHT
     if "GreenCorner" in key:
         return ACCENT
     if "BlueCorner" in key:
-        return ACCENT_CYAN
+        return ACCENT_GREEN
 
     # Small, intentional exception: call-cancel is a neutral action, not an error.
     if key == "callCancelBg":
@@ -135,7 +135,7 @@ def color_for(key: str, original: str) -> str:
             return "#39ff1430"
         return ACCENT_BRIGHT if "Over" in key else ACCENT
 
-    # Root panels and layered surfaces.
+    # Root panels and layered surfaces use green-black instead of upstream teal.
     if key in ROOT_BACKGROUNDS:
         return BG_DARK if key in {"introBg", "mediaviewBg", "mediaviewVideoBg", "imageBg", "sideBarBg"} else BG
     if key in DARK_BACKGROUNDS:
@@ -175,7 +175,7 @@ def color_for(key: str, original: str) -> str:
     if key in {"shadowFg", "windowShadowFg", "windowShadowFgFallback", "slideFadeOutShadowFg", "titleShadow", "historyToDownShadow", "msgInShadow", "msgInShadowSelected", "msgOutShadow", "msgOutShadowSelected"}:
         return "#00000055"
     if key in {"slideFadeOutBg", "photoCropFadeBg", "mediaviewTransparentBg", "notificationsBoxScreenBg"}:
-        return "#020302aa"
+        return "#010402aa"
     if key == "shadowFg":
         return "#00000024"
 
@@ -183,7 +183,7 @@ def color_for(key: str, original: str) -> str:
     if key.startswith("scrollBar"):
         return "#39ff1466" if "Over" in key else "#39ff1444"
     if key.startswith("scrollBg"):
-        return "#0c140c88" if "Over" in key else "#0c140c55"
+        return "#09180e88" if "Over" in key else "#09180e55"
     if key in {"inputBorderFg", "filterInputBorderFg", "menuSeparatorFg", "historyUnreadBarBorder"}:
         return ACCENT_DEEP
 
@@ -216,7 +216,7 @@ def color_for(key: str, original: str) -> str:
         "emojiPanCategories": TEXT_MUTED,
         "historyUnreadBarBorder": ACCENT,
         "msgSelectOverlay": "#39ff1438",
-        "msgStickerOverlay": "#050805aa",
+        "msgStickerOverlay": "#020304aa",
         "msgInReplyBarColor": ACCENT,
         "msgInReplyBarSelColor": ACCENT_BRIGHT,
         "msgOutReplyBarColor": ACCENT,
@@ -232,7 +232,7 @@ def color_for(key: str, original: str) -> str:
         "msgWaveformOutInactiveSelected": ACCENT_DEEP,
         "historyToDownShadow": "#00000055",
         "overviewPhotoSelectOverlay": "#39ff1438",
-        "changePhoneSimcardFrom": ACCENT_CYAN,
+        "changePhoneSimcardFrom": ACCENT_GREEN,
         "changePhoneSimcardTo": ACCENT,
         "mediaviewPlaybackActive": ACCENT,
         "mediaviewPlaybackInactive": TEXT_MUTED,
@@ -243,7 +243,7 @@ def color_for(key: str, original: str) -> str:
         "callMuteRipple": "#39ff1430",
         "callBarMuteRipple": "#39ff1430",
         "callBarUnmuteRipple": "#39ff1430",
-        "statisticsChartInactive": "#1a4a1a88",
+        "statisticsChartInactive": "#15512c88",
         "statisticsChartActive": "#39ff1488",
     }
     if key in other:
@@ -310,7 +310,7 @@ def main() -> None:
         indent, key, original, suffix = match.groups()
         keys.append(key)
         value = color_for(key, original.strip())
-        output_lines.append(f"{indent}{key}: {value};{suffix}")
+        output_lines.append(f"{indent}{key}: {value};{suffix.rstrip()}")
     fallbacks = sorted(set(FALLBACK_KEYS))
 
     if len(keys) < 400 or len(set(keys)) != len(keys):
@@ -319,6 +319,11 @@ def main() -> None:
     (OUT / "colors.tdesktop-theme").write_text(palette, encoding="utf-8")
     wallpaper = make_background()
     (OUT / "background.png").write_bytes(wallpaper)
+
+    expanded_bundle = OUT / "0xPrivacy-Phosphor"
+    expanded_bundle.mkdir(parents=True, exist_ok=True)
+    (expanded_bundle / "colors.tdesktop-theme").write_text(palette, encoding="utf-8")
+    (expanded_bundle / "background.png").write_bytes(wallpaper)
 
     archive_path = OUT / "0xPrivacy-Phosphor.tdesktop-theme"
     with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as theme:

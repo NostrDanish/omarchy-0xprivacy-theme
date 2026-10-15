@@ -1,16 +1,41 @@
 # 0xPrivacy
 
-Phosphor mainframe theme for this Omarchy box.
+Full Omarchy theme: forest black, neon green `#39ff14`, rose `#ff2e63`, the 0xHermes wallpaper, its 12 FPS screensaver, and the green/red `0xPrivacy-Phosphor` icon set.
 
-- Neon `#39ff14` / matrix `#00ff41` on `#050805`
-- Wallpaper: dense rain + HUD + skull (`backgrounds/01-root-shell.png`)
-- Icons: 0xPrivacy-Phosphor frameless, monochrome-green app icons (inherits Yaru-olive-dark)
-- App-cover generator: run `/usr/bin/python3 ~/.config/omarchy/themes/0xprivacy/generate-app-icons.py` after installing/removing apps
-- Telegram: full 467-color `telegram/0xPrivacy-Phosphor.tdesktop-theme` bundle + matching phosphor-grid chat wallpaper; regenerate with `/usr/bin/python3 ~/.config/omarchy/themes/0xprivacy/generate-telegram-theme.py`
-- Keyboard RGB: 57,255,20
-- Optional screensaver bundle: animated 0xPrivacy attract mode + preview in `screensaver/`. After installing the theme, install the profile with `bash ~/.config/omarchy/themes/0xprivacy/screensaver/install.sh`; activation is separate and documented in `screensaver/README.md`.
+Omarchy applies colors, Hyprland, Neovim, and VS Code from this directory only when the theme path is your own copy or a symlink. A bare git clone is treated as untrusted and those files are dropped.
+
+## Install
 
 ```bash
-omarchy theme set 0xprivacy
-omarchy theme bg set ~/.config/omarchy/backgrounds/0xprivacy/01-root-shell.png
+omarchy theme install https://github.com/NostrDanish/omarchy-0xprivacy-theme
+bash ~/.config/omarchy/themes/0xprivacy/install.sh
+```
+
+`install.sh` copies the icon theme, selects it, installs and selects the screensaver, and sets the wallpaper to `backgrounds/0xhermes.png`.
+
+If this checkout is already on disk:
+
+```bash
+ln -sfn "$PWD" ~/.config/omarchy/themes/0xprivacy
+omarchy theme refresh
+bash "$PWD/install.sh"
+```
+
+`omarchy theme refresh` can cycle the wallpaper. `install.sh` puts it back on 0xHermes.
+
+## What is included
+
+| Piece | Path |
+|---|---|
+| Wallpaper | `backgrounds/0xhermes.png` |
+| Screensaver | `screensaver/hermes-crazy.mp4` |
+| Icons | `icons/0xPrivacy-Phosphor/` |
+| Bar colors | `shell.toml` — text `#39ff14`, active `#ff2e63` |
+
+The screensaver is one loop of the 0xHermes wallpaper: rose scan, phosphor shear, margin rain. Any ordinary key quits. Do not raise it above 12 FPS on a hot laptop.
+
+Launcher icons are duotone. Dark ink is rose. Bright ink is neon green. Regenerate after installing apps:
+
+```bash
+/usr/bin/python3 generate-app-icons.py
 ```
