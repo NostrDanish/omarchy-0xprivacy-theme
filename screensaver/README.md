@@ -1,6 +1,6 @@
-# 0xPrivacy Dark-Web Phosphor Screensaver
+# 0xPrivacy screensaver
 
-The screensaver is the 0xHermes wallpaper animated: rose scan, phosphor shear, and margin rain. One 6-second loop at 12 FPS, not a reel of other pictures.
+The screensaver is the Node wallpaper animated: a mint scan and a short glitch slice. One 6-second loop at 12 FPS. Not the Hermes mascot and not a slideshow.
 
 ## Install into Omarchy
 
@@ -21,7 +21,7 @@ Use `omarchy-screensaver-profile demo` to preview the selected profile, or wait 
 ## Runtime
 
 - Python 3 and a true-color terminal are required; there are no third-party Python modules.
-- The runner finds `privacy.py` relative to itself.
+- The runner plays `node-loop.mp4`. Do not pass `--fps` to mpv.
 - Default animation rate is 12 FPS; do not raise it on this thermally constrained laptop.
 - The runner uses low CPU/IO priority and restores cursor visibility when it exits.
 - `OMARCHY_SAVER_FPS` can override the rate if needed.
