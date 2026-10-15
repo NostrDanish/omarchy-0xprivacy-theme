@@ -1,4 +1,4 @@
-local active_border_color = { colors = { "rgba(00f48eee)", "rgba(ff9f00ee)" }, angle = 45 }
+local active_border_color = { colors = { "rgba(00ff41ee)", "rgba(ff2e63ee)" }, angle = 45 }
 local inactive_border_color = "rgba(0a3d27aa)"
 
 hl.config({

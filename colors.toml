@@ -1,7 +1,7 @@
 mode = "dark"
 
 # 0xPrivacy, matched to 0xprivacy.online: black field, mint #00f48e, amber signal.
-accent = "#00f48e"
+accent = "#00ff41"
 selection = "#063322"
 muted = "#6d8f80"
 
@@ -15,11 +15,11 @@ dark_foreground = "#6d8f80"
 light_foreground = "#f7fffb"
 bright_foreground = "#ffffff"
 
-cursor = "#00f48e"
+cursor = "#00ff41"
 selection_foreground = "#000000"
-selection_background = "#00f48e"
+selection_background = "#00ff41"
 
-hyprland_active_border = "rgba(00f48eee) rgba(ff9f00ee) 45deg"
+hyprland_active_border = "rgba(00ff41ee) rgba(ff2e63ee) 45deg"
 hyprland_inactive_border = "rgba(0a3d27aa)"
 
 color0 = "#000000"
@@ -42,7 +42,7 @@ color15 = "#ffffff"
 red = "#ef4444"
 yellow = "#ff9f00"
 orange = "#ff9f00"
-green = "#00f48e"
+green = "#00ff41"
 cyan = "#00ff9f"
 blue = "#0a3d27"
 magenta = "#bf5af2"
