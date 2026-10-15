@@ -25,7 +25,7 @@ APP_ICON_DIR = ICON_ROOT / "256x256" / "apps"
 BACKUP_SUFFIX = ".0xprivacy-original"
 # The FLUID desktop file uses "fluid", while its package ships "fluid1.3".
 ALIASES = {"fluid": "fluid1.3"}
-PHOSPHOR = (0, 244, 142, 255)
+PHOSPHOR = (0, 255, 65, 255)
 
 
 def desktop_entries() -> list[Path]:
@@ -107,8 +107,8 @@ def pixbuf_to_image(path: Path) -> Image.Image:
         red, green, blue, alpha = raw_pixels[offset : offset + 4]
         luminance = (2126 * red + 7152 * green + 722 * blue) / 10000 / 255
         level = int(round(255 * (luminance ** 0.65)))
-        # Duotone: darker ink is rose, brighter ink is neon green.
-        color = (255, 159, 0) if luminance < 0.42 else (0, 244, 142)
+        # Hacker green only. Dark ink is deep phosphor, bright ink is #00ff41.
+        color = (0, 120, 36) if luminance < 0.42 else (0, 255, 65)
         mapped.append((round(color[0] * level / 255), round(color[1] * level / 255), round(color[2] * level / 255), alpha))
     image.putdata(mapped)
     return image
@@ -159,7 +159,7 @@ def make_cover(source: Path | None, app_name: str, icon: str) -> Image.Image:
     canvas.alpha_composite(logo, (x, y))
     draw = ImageDraw.Draw(canvas)
     draw.rounded_rectangle((10, 10, 245, 245), radius=28, outline=PHOSPHOR, width=4)
-    draw.rectangle((18, 18, 46, 238), fill=(255, 159, 0, 255))
+    draw.rectangle((18, 18, 46, 238), fill=(0, 255, 65, 255))
     return canvas
 
 
