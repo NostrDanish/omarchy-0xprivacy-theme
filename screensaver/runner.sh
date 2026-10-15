@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Lockup wallpaper, animated as one 12 FPS loop. Low priority.
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-VIDEO="$SCRIPT_DIR/lockup-loop.mp4"
+VIDEO="$SCRIPT_DIR/privacy-glitch.mp4"
 QUIT="$SCRIPT_DIR/quit-on-key.lua"
 
 restore_cursor() {
