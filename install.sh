@@ -2,11 +2,11 @@
 set -euo pipefail
 
 # Install the full 0xPrivacy theme pieces Omarchy does not apply by itself:
-# green/red launcher icons, the 0xHermes wallpaper, and the screensaver.
+# green launcher icons, the Lockup wallpaper, and the glitch screensaver.
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 ICON_SRC="$ROOT/icons/0xPrivacy-Phosphor"
 ICON_DEST="${XDG_DATA_HOME:-$HOME/.local/share}/icons/0xPrivacy-Phosphor"
-WALLPAPER="$ROOT/backgrounds/00-node.png"
+WALLPAPER="$ROOT/backgrounds/00-lockup.png"
 
 if [[ ! -d "$ICON_SRC" ]]; then
   printf 'Missing icon theme: %s\n' "$ICON_SRC" >&2

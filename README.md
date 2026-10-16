@@ -1,8 +1,8 @@
 # 0xPrivacy
 
-Full Omarchy theme: forest black, neon green `#39ff14`, rose `#ff2e63`, the 0xHermes wallpaper, its 12 FPS screensaver, and the green/red `0xPrivacy-Phosphor` icon set.
+Full Omarchy theme. Default is the live desktop: black field, phosphor `#00ff41`, rose `0x`, the Lockup wallpaper, the glitch screensaver, and the green `0xPrivacy-Phosphor` icon set.
 
-Omarchy applies colors, Hyprland, Neovim, and VS Code from this directory only when the theme path is your own copy or a symlink. A bare git clone is treated as untrusted and those files are dropped.
+Omarchy applies colors, Hyprland, Neovim, VS Code, and menus only when the theme path is your own copy or a symlink. A bare git clone drops `hyprland.lua`, `neovim.lua`, and `vscode.json`.
 
 ## Install
 
@@ -11,31 +11,28 @@ omarchy theme install https://github.com/NostrDanish/omarchy-0xprivacy-theme
 bash ~/.config/omarchy/themes/0xprivacy/install.sh
 ```
 
-`install.sh` copies the icon theme, selects it, installs and selects the screensaver, and sets the wallpaper to `backgrounds/0xhermes.png`.
+`install.sh` copies the icon theme, selects it, installs and selects `saved-0xprivacy`, and sets the wallpaper to `backgrounds/00-lockup.png`.
 
-If this checkout is already on disk:
+`omarchy theme refresh` can cycle the wallpaper. Run `install.sh` again to put Lockup back.
 
-```bash
-ln -sfn "$PWD" ~/.config/omarchy/themes/0xprivacy
-omarchy theme refresh
-bash "$PWD/install.sh"
-```
+## Wallpapers
 
-`omarchy theme refresh` can cycle the wallpaper. `install.sh` puts it back on 0xHermes.
+The picker labels come from the filenames. `00-lockup.png` sorts first, so a fresh apply lands on it.
 
-## What is included
-
-| Piece | Path |
+| File | What it is |
 |---|---|
-| Wallpaper | `backgrounds/0xhermes.png` |
-| Screensaver | `screensaver/hermes-crazy.mp4` |
-| Icons | `icons/0xPrivacy-Phosphor/` |
-| Bar colors | `shell.toml` — text `#39ff14`, active `#ff2e63` |
+| `backgrounds/00-lockup.png` | Default. Rose `0x`, phosphor `PRIVACY`. |
+| `backgrounds/04-stealth-mode.png` | The same wordmark, left aligned. |
+| `backgrounds/0xhermes.png` | Phosphor mascot plus the wordmark. |
+| `backgrounds/00-node.png` | DIGITAL CAGE node. |
+| `backgrounds/01-root-shell.png` | Mascot and wordmark, root footer. |
+| `backgrounds/02-ghost-protocol.png` | Mascot only. |
+| `backgrounds/03-cipher-storm.png` | Mascot, wordmark, verify line. |
 
-The screensaver is one loop of the 0xHermes wallpaper: rose scan, phosphor shear, margin rain. Any ordinary key quits. Do not raise it above 12 FPS on a hot laptop.
+## Screensaver
 
-Launcher icons are duotone. Dark ink is rose. Bright ink is neon green. Regenerate after installing apps:
+`screensaver/privacy-glitch.mp4` is an 8-second 12 FPS loop: the rose `0x` tears in, `PRIVACY` types on, margin rain, one slice glitch. Any ordinary key quits. Do not pass `--fps` to mpv.
 
-```bash
-/usr/bin/python3 generate-app-icons.py
-```
+## Menus and icons
+
+Bar text and menu selection are `#00ff41`. Window borders are phosphor to rose. Launcher covers are hacker green, 89 icons, in `icons/0xPrivacy-Phosphor/`.
