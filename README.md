@@ -1,6 +1,8 @@
 # 0xPrivacy
 
-Full Omarchy theme. Default is the live desktop: black field, phosphor `#00ff41`, rose `0x`, the Lockup wallpaper, the glitch screensaver, and the green `0xPrivacy-Phosphor` icon set.
+Full Omarchy theme. Default is the live desktop: near-black field, phosphor `#39ff14`, trust blue `#4edada`, rose `0x`, the Lockup wallpaper, the glitch screensaver, and the green `0xPrivacy-Phosphor` icon set.
+
+The palette comes from `privacy-tokens.json` v1.5. `colors.toml` is the single source of truth: Omarchy's renderer derives the terminal, editor, Hyprland, and Hermes skins from it, and `lucas.system-pulse` reads the active theme's `colors.toml` at runtime for its statusline inks.
 
 Omarchy applies colors, Hyprland, Neovim, VS Code, and menus only when the theme path is your own copy or a symlink. A bare git clone drops `hyprland.lua`, `neovim.lua`, and `vscode.json`.
 
@@ -35,4 +37,18 @@ The picker labels come from the filenames. `00-lockup.png` sorts first, so a fre
 
 ## Menus and icons
 
-Bar text and menu selection are `#00ff41`. Window borders are phosphor to rose. Launcher covers are hacker green, 89 icons, in `icons/0xPrivacy-Phosphor/`.
+Bar text and menu selection are `#39ff14`. Window borders run phosphor to trust blue. Launcher covers are hacker green, 89 icons, in `icons/0xPrivacy-Phosphor/`.
+
+## Statusline
+
+`lucas.system-pulse` resolves its metric inks from the active theme's `colors.toml`, not from a theme-local file. Each named key and its `colorN` twin carry the same value so the two lookup paths agree.
+
+| Metric | Key | Ink | Contrast on `#050805` |
+|---|---|---|---|
+| CPU | `green` / `color2` | `#39ff14` | 14.84:1 |
+| Memory | `magenta` / `color5` | `#7cff7c` | 15.77:1 |
+| GPU | `blue` / `color4` | `#4edada` | 11.85:1 |
+| Heat | `yellow` / `color3` | `#ffff99` | 19.18:1 |
+| Disk | `cyan` / `color6` | `#a0ecec` | 15.05:1 |
+
+`statusline.yaml` mirrors this table as a human-readable record. It does not drive the widget.

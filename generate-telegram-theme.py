@@ -22,26 +22,27 @@ UPSTREAM_URL = (
     f"{UPSTREAM_COMMIT}/Telegram/Resources/night-green.tdesktop-theme"
 )
 
-# 0xPrivacy dark-web roles: neon green, forest-green depth, rose-red signals.
-BG = "#020804"
-BG_DARK = "#010402"
-BG_SURFACE = "#09180e"
-BG_HOVER = "#0e2114"
-BG_SELECTED = "#12381f"
-BG_SELECTED_HI = "#1a4929"
-BG_RED = "#3a0c1a"
-TEXT = "#c7f5ce"
-TEXT_BRIGHT = "#f2fff4"
-TEXT_MUTED = "#63856b"
-TEXT_DISABLED = "#3d5c44"
-ACCENT = "#39ff14"
-ACCENT_BRIGHT = "#83ff60"
-ACCENT_DEEP = "#15512c"
-ACCENT_GREEN = "#2bbf68"
-ACCENT_LIME = "#a8ff45"
-ACCENT_LIME_BRIGHT = "#c1ff6b"
-RED = "#ff2e63"
-RED_BRIGHT = "#ff7390"
+# 0xPrivacy roles from privacy-tokens.json v1.5 (dark mode): phosphor green
+# for the privacy indicators, cyan-shifted trust blue for the accent family.
+BG = "#050805"            # background.dark
+BG_DARK = "#010502"       # near-black structural step
+BG_SURFACE = "#0c140c"    # backgroundElevated.dark
+BG_HOVER = "#0a1a0a"      # backgroundHover.dark
+BG_SELECTED = "#0a1a0a"   # backgroundHover.dark
+BG_SELECTED_HI = "#1a4a1a"# border.dark
+BG_RED = "#2b0e0c"        # derived error surface
+TEXT = "#c8ffc8"          # foreground.dark
+TEXT_BRIGHT = "#c8ffc8"   # foreground.dark
+TEXT_MUTED = "#7cff7c"    # foregroundMuted.dark
+TEXT_DISABLED = "#234623" # mix(background, phosphorMuted, 25%)
+ACCENT = "#39ff14"        # phosphor.dark
+ACCENT_BRIGHT = "#7cff7c" # phosphorMuted.dark
+ACCENT_DEEP = "#1a4a1a"   # border.dark
+ACCENT_GREEN = "#00ff41"  # phosphorDim.dark
+ACCENT_TRUST = "#4edada"   # accent.dark
+ACCENT_TRUST_BRIGHT = "#7ae5e5" # accentHover.dark
+RED = "#ff3333"
+RED_BRIGHT = "#ff5555"    # error.dark
 
 LINE_RE = re.compile(r"^(\s*)([A-Za-z][A-Za-z0-9_]*)\s*:\s*([^;]+)(;.*)$")
 
@@ -88,8 +89,8 @@ MUTED_FG_EXACT = {
     "emojiIconFg", "sideBarTextFg", "sideBarIconFg", "overviewCheckBorder",
 }
 
-USERPIC = [ACCENT, ACCENT_GREEN, ACCENT_LIME, ACCENT_BRIGHT,
-           "#0b6530", "#2bbf68", TEXT, "#ff6688"]
+USERPIC = [ACCENT, ACCENT_GREEN, ACCENT_TRUST, ACCENT_BRIGHT,
+           "#00ff41", "#4edada", TEXT, "#7ae5e5"]
 FALLBACK_KEYS: list[str] = []
 
 
@@ -102,10 +103,10 @@ def color_for(key: str, original: str) -> str:
     # Semantic warning/error states use rose-red rather than green.
     if any(tag in key for tag in ("Error", "Missed", "RedCorner", "reportSpam")) or key.startswith("attentionButton") or key.startswith("callHangup"):
         if "Bg" in key:
-            return BG_RED if "Ripple" not in key else "#ff2e6344"
+            return BG_RED if "Ripple" not in key else "#ff333344"
         return RED_BRIGHT if "Over" in key or "Ripple" in key else RED
     if "YellowCorner" in key:
-        return ACCENT_LIME_BRIGHT
+        return ACCENT_TRUST_BRIGHT
     if "GreenCorner" in key:
         return ACCENT
     if "BlueCorner" in key:
@@ -175,7 +176,7 @@ def color_for(key: str, original: str) -> str:
     if key in {"shadowFg", "windowShadowFg", "windowShadowFgFallback", "slideFadeOutShadowFg", "titleShadow", "historyToDownShadow", "msgInShadow", "msgInShadowSelected", "msgOutShadow", "msgOutShadowSelected"}:
         return "#00000055"
     if key in {"slideFadeOutBg", "photoCropFadeBg", "mediaviewTransparentBg", "notificationsBoxScreenBg"}:
-        return "#010402aa"
+        return "#010502aa"
     if key == "shadowFg":
         return "#00000024"
 
@@ -183,7 +184,7 @@ def color_for(key: str, original: str) -> str:
     if key.startswith("scrollBar"):
         return "#39ff1466" if "Over" in key else "#39ff1444"
     if key.startswith("scrollBg"):
-        return "#09180e88" if "Over" in key else "#09180e55"
+        return "#0c140c88" if "Over" in key else "#0c140c55"
     if key in {"inputBorderFg", "filterInputBorderFg", "menuSeparatorFg", "historyUnreadBarBorder"}:
         return ACCENT_DEEP
 
@@ -216,7 +217,7 @@ def color_for(key: str, original: str) -> str:
         "emojiPanCategories": TEXT_MUTED,
         "historyUnreadBarBorder": ACCENT,
         "msgSelectOverlay": "#39ff1438",
-        "msgStickerOverlay": "#020304aa",
+        "msgStickerOverlay": "#050805aa",
         "msgInReplyBarColor": ACCENT,
         "msgInReplyBarSelColor": ACCENT_BRIGHT,
         "msgOutReplyBarColor": ACCENT,
@@ -243,7 +244,7 @@ def color_for(key: str, original: str) -> str:
         "callMuteRipple": "#39ff1430",
         "callBarMuteRipple": "#39ff1430",
         "callBarUnmuteRipple": "#39ff1430",
-        "statisticsChartInactive": "#15512c88",
+        "statisticsChartInactive": "#1a4a1a88",
         "statisticsChartActive": "#39ff1488",
     }
     if key in other:

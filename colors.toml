@@ -1,56 +1,95 @@
 mode = "dark"
 
-# 0xPrivacy, matched to 0xprivacy.online: black field, mint #00f48e, amber signal.
-accent = "#00ff41"
-selection = "#063322"
+# 0xPrivacy — phosphor mainframe with a cyan-shifted trust blue accent.
+# Palette from src/assets/privacy-tokens.json v1.5 (dark mode).
+#
+# Token mapping (base + semantic values are token-exact):
+#   accent #4edada / accentHover #7ae5e5 / accentActive #a0ecec
+#   phosphor #39ff14 / phosphorDim #00ff41 / phosphorMuted #7cff7c
+#   foreground #c8ffc8 / foregroundMuted #7cff7c / foregroundSubtle #5aff5a
+#   background #050805 / backgroundElevated #0c140c / backgroundHover #0a1a0a
+#   border #1a4a1a / borderFocus #4edada
+#   error #ff5555 / warning #ffff99 / success #39ff14
+#
+# The ANSI ladder mirrors those token families, and every named key holds the
+# same value as its colorN twin. That matters for the statusline:
+# lucas.system-pulse resolves each metric ink by name with the colorN slot as
+# fallback (cpu green/color2, memory magenta/color5, gpu blue/color4, heat
+# yellow/color3, disk cyan/color6), so the two paths must agree.
+#
+# The five metric inks are hue-separated on purpose: phosphor / phosphorMuted /
+# accent / warning / accentActive. Upstream's color4 was #0a3d27, a near-black
+# surface tone that made the GPU reading 1.71:1 against the bar — invisible.
+
+accent = "#4edada"
+accentHover = "#7ae5e5"
+accentActive = "#a0ecec"
+
+phosphor = "#39ff14"
+phosphorDim = "#00ff41"
+phosphorMuted = "#7cff7c"
+
+background = "#050805"
+backgroundElevated = "#0c140c"
+backgroundHover = "#0a1a0a"
+border = "#1a4a1a"
+borderFocus = "#4edada"
+
+foreground = "#c8ffc8"
+foregroundMuted = "#7cff7c"
+foregroundSubtle = "#5aff5a"
+
+error = "#ff5555"
+warning = "#ffff99"
+success = "#39ff14"
+
+selection = "#0a1a0a"
 muted = "#6d8f80"
 
-background = "#000000"
 dark_background = "#010502"
 darker_background = "#000000"
-lighter_background = "#06140c"
+lighter_background = "#0c140c"
 
-foreground = "#effbf5"
-dark_foreground = "#6d8f80"
-light_foreground = "#f7fffb"
-bright_foreground = "#ffffff"
+dark_foreground = "#00ff41"
+light_foreground = "#7cff7c"
+bright_foreground = "#c8ffc8"
 
-cursor = "#00ff41"
-selection_foreground = "#000000"
-selection_background = "#00ff41"
+cursor = "#39ff14"
+selection_foreground = "#050805"
+selection_background = "#39ff14"
 
-hyprland_active_border = "rgba(00ff41ee) rgba(ff2e63ee) 45deg"
-hyprland_inactive_border = "rgba(0a3d27aa)"
+hyprland_active_border = "rgba(39ff14ee) rgba(4edadaee) 45deg"
+hyprland_inactive_border = "rgba(1a4a1a99)"
 
-color0 = "#000000"
-color1 = "#ef4444"
-color2 = "#00f48e"
-color3 = "#ff9f00"
-color4 = "#0a3d27"
-color5 = "#bf5af2"
-color6 = "#00ff9f"
-color7 = "#effbf5"
-color8 = "#1a2e24"
-color9 = "#f87171"
-color10 = "#5dffb8"
-color11 = "#ffc14d"
-color12 = "#147a4a"
-color13 = "#d7a4f7"
-color14 = "#7dffe0"
+color0 = "#050805"
+color1 = "#ff3333"
+color2 = "#39ff14"
+color3 = "#ffff99"
+color4 = "#4edada"
+color5 = "#7cff7c"
+color6 = "#a0ecec"
+color7 = "#c8ffc8"
+color8 = "#1a4a1a"
+color9 = "#ff5555"
+color10 = "#7cff7c"
+color11 = "#ffff99"
+color12 = "#7ae5e5"
+color13 = "#c8ffc8"
+color14 = "#a0ecec"
 color15 = "#ffffff"
 
-red = "#ef4444"
-yellow = "#ff9f00"
-orange = "#ff9f00"
-green = "#00ff41"
-cyan = "#00ff9f"
-blue = "#0a3d27"
-magenta = "#bf5af2"
-brown = "#1a2e24"
+red = "#ff3333"
+yellow = "#ffff99"
+orange = "#ff6600"
+green = "#39ff14"
+cyan = "#a0ecec"
+blue = "#4edada"
+magenta = "#7cff7c"
+brown = "#2a6b2a"
 
-bright_red = "#f87171"
-bright_yellow = "#ffc14d"
-bright_green = "#5dffb8"
-bright_cyan = "#7dffe0"
-bright_blue = "#147a4a"
-bright_magenta = "#d7a4f7"
+bright_red = "#ff5555"
+bright_yellow = "#ffff99"
+bright_green = "#7cff7c"
+bright_cyan = "#a0ecec"
+bright_blue = "#7ae5e5"
+bright_magenta = "#c8ffc8"

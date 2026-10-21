@@ -1,0 +1,67 @@
+# 0xPrivacy — lucas.system-pulse statusline color mappings
+# Derived from privacy-tokens.json v1.5 (dark mode)
+# Accent: cyan-shifted trust blue #4edada
+# Phosphor: matrix green #39ff14 / #00ff41 / #7cff7c
+#
+# HOW THIS THEME ACTUALLY REACHES THE STATUSLINE
+#
+# lucas.system-pulse does not read this file. It resolves its metric inks at
+# runtime from the ACTIVE theme's colors.toml:
+#
+#   collector.py -> palette() reads ~/.local/state/omarchy/current/theme/colors.toml
+#   Metrics.palette(name, ansi, fallback) -> sample.palette[name] || sample.palette[ansi]
+#
+# Widget.qml binds: cpu=green/color2, memory=magenta/color5, gpu=blue/color4,
+# heat=yellow/color3, disk=cyan/color6. So the mapping that matters is the
+# named key in colors.toml, and its colorN twin must agree. colors.toml is the
+# single source of truth; this file is the human-readable record of it.
+#
+# The values below mirror colors.toml exactly. Change the token, change
+# colors.toml, and re-sync this table.
+
+mode: "dark"
+
+# --- metric inks (colors.toml named key -> plugin role) ---
+cpu: "#39ff14"       # phosphor.dark          -> green  / color2
+memory: "#7cff7c"    # phosphorMuted.dark     -> magenta / color5
+gpu: "#4edada"       # accent.dark            -> blue   / color4
+heat: "#ffff99"      # warning.dark           -> yellow / color3
+disk: "#a0ecec"      # accentActive.dark      -> cyan   / color6
+
+# --- shared accents ---
+accent: "#4edada"        # accent.dark
+accent_hover: "#7ae5e5"  # accentHover.dark
+accent_active: "#a0ecec" # accentActive.dark
+
+# --- phosphor family ---
+phosphor: "#39ff14"      # phosphor.dark
+phosphor_dim: "#00ff41"  # phosphorDim.dark
+phosphor_muted: "#7cff7c"# phosphorMuted.dark
+
+# --- surfaces ---
+background: "#050805"          # background.dark
+background_elevated: "#0c140c"# backgroundElevated.dark
+background_hover: "#0a1a0a"   # backgroundHover.dark
+
+# --- text ---
+foreground: "#c8ffc8"        # foreground.dark
+foreground_muted: "#7cff7c"  # foregroundMuted.dark
+foreground_subtle: "#5aff5a" # foregroundSubtle.dark
+
+# --- lines and focus ---
+border: "#1a4a1a"      # border.dark
+border_focus: "#4edada"# borderFocus.dark
+
+# --- semantic states ---
+error: "#ff5555"   # error.dark
+warning: "#ffff99" # warning.dark
+success: "#39ff14" # success.dark
+
+# --- Omarchy shell surface roles (Color.qml) ---
+# The shell's own bar/popup chrome follows the active colors.toml and the
+# theme's shell.toml, so these stay in step with the metric inks above.
+shell_accent: "#4edada" # accent
+shell_foreground: "#c8ffc8"
+shell_background: "#050805"
+shell_muted: "#6d8f80"
+shell_urgent: "#ff3333" # red / color1
