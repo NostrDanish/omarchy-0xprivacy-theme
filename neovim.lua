@@ -19,10 +19,10 @@ return {
 
         red = "#ff3333",
         yellow = "#ffff99",
-        orange = "#ff6600",
-        green = "#00ff41",
+        orange = "#ff9f00",
+        green = "#39ff14",
         cyan = "#a0ecec",
-        blue = "#4edada",
+        blue = "#00ff41",
         magenta = "#7cff7c",
         brown = "#2a6b2a",
 

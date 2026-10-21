@@ -1,14 +1,17 @@
 mode = "dark"
 
-# 0xPrivacy — phosphor mainframe with a cyan-shifted trust blue accent.
-# Palette from src/assets/privacy-tokens.json v1.5 (dark mode).
+# 0xPrivacy — phosphor mainframe. 80s hacker green aesthetic: phosphor dominates,
+# trust blue is gone from the theme chrome.
+# Palette from src/assets/privacy-tokens.json v1.5 (dark mode), with the accent
+# shifted from trust blue #4edada back to phosphor #39ff14 per design direction.
 #
 # Token mapping (base + semantic values are token-exact):
-#   accent #4edada / accentHover #7ae5e5 / accentActive #a0ecec
+#   accent #39ff14 (was #4edada — shifted to phosphor for 80s hacker green)
+#   accentHover #7cff7c / accentActive #a0ecec
 #   phosphor #39ff14 / phosphorDim #00ff41 / phosphorMuted #7cff7c
 #   foreground #c8ffc8 / foregroundMuted #7cff7c / foregroundSubtle #5aff5a
 #   background #050805 / backgroundElevated #0c140c / backgroundHover #0a1a0a
-#   border #1a4a1a / borderFocus #4edada
+#   border #1a4a1a / borderFocus #39ff14
 #   error #ff5555 / warning #ffff99 / success #39ff14
 #
 # The ANSI ladder mirrors those token families, and every named key holds the
@@ -18,11 +21,13 @@ mode = "dark"
 # yellow/color3, disk cyan/color6), so the two paths must agree.
 #
 # The five metric inks are hue-separated on purpose: phosphor / phosphorMuted /
-# accent / warning / accentActive. Upstream's color4 was #0a3d27, a near-black
+# blue / warning / accentActive. Upstream's color4 was #0a3d27, a near-black
 # surface tone that made the GPU reading 1.71:1 against the bar — invisible.
+# The GPU uses phosphorDim #00ff41 — a medium green, distinct from CPU (bright)
+# and MEM (light) by lightness. Fully monochromatic green for the 80s hacker look.
 
-accent = "#4edada"
-accentHover = "#7ae5e5"
+accent = "#39ff14"
+accentHover = "#7cff7c"
 accentActive = "#a0ecec"
 
 phosphor = "#39ff14"
@@ -33,7 +38,7 @@ background = "#050805"
 backgroundElevated = "#0c140c"
 backgroundHover = "#0a1a0a"
 border = "#1a4a1a"
-borderFocus = "#4edada"
+borderFocus = "#39ff14"
 
 foreground = "#c8ffc8"
 foregroundMuted = "#7cff7c"
@@ -58,14 +63,14 @@ cursor = "#39ff14"
 selection_foreground = "#050805"
 selection_background = "#39ff14"
 
-hyprland_active_border = "rgba(39ff14ee) rgba(4edadaee) 45deg"
+hyprland_active_border = "rgba(39ff14ee) rgba(ff9f00ee) 45deg"
 hyprland_inactive_border = "rgba(1a4a1a99)"
 
 color0 = "#050805"
 color1 = "#ff3333"
 color2 = "#39ff14"
 color3 = "#ffff99"
-color4 = "#4edada"
+color4 = "#00ff41"
 color5 = "#7cff7c"
 color6 = "#a0ecec"
 color7 = "#c8ffc8"
@@ -80,10 +85,10 @@ color15 = "#ffffff"
 
 red = "#ff3333"
 yellow = "#ffff99"
-orange = "#ff6600"
+orange = "#ff9f00"
 green = "#39ff14"
 cyan = "#a0ecec"
-blue = "#4edada"
+blue = "#00ff41"
 magenta = "#7cff7c"
 brown = "#2a6b2a"
 

@@ -20,8 +20,8 @@ size-vertical    = 28
 # Shared Hyprland-derived border tokens. Surface sections reference these so
 # lock, notifications, popups, and menu-style cards stay aligned with the
 # current Hyprland active-border gradient.
-active-border            = "rgba(39ff14ee) rgba(4edadaee) 45deg"
-active-border-foreground = "rgba(39ff14ee) rgba(4edadaee) 45deg"
+active-border            = "rgba(39ff14ee) rgba(ff9f00ee) 45deg"
+active-border-foreground = "rgba(39ff14ee) rgba(ff9f00ee) 45deg"
 
 [controls]
 # Shared state tokens for interactive control chrome (buttons, dropdowns,
@@ -149,7 +149,7 @@ text             = "#c8ffc8"
 border           = "hyprland.active-border"
 border-alpha     = 1.0
 # border-width     = 2
-countdown        = "#4edada"
+countdown        = "#39ff14"
 
 [launcher]
 # Same six tokens as [menu], applied to the launcher overlay. Alpha
@@ -165,7 +165,7 @@ scrim                     = "#050805"
 scrim-alpha               = 0.5
 selected-background       = "#c8ffc8"
 selected-background-alpha = 0.08
-selected-text             = "#4edada"
+selected-text             = "#39ff14"
 selected-border           = "hyprland.active-border-foreground"
 selected-border-alpha     = 0.25
 
@@ -182,7 +182,7 @@ scrim                     = "#050805"
 scrim-alpha               = 0.5
 selected-background       = "#c8ffc8"
 selected-background-alpha = 0.08
-selected-text             = "#4edada"
+selected-text             = "#39ff14"
 selected-border           = "hyprland.active-border-foreground"
 selected-border-alpha     = 0.25
 
@@ -202,7 +202,7 @@ border-alpha     = 1.0
 scrim            = "#050805"
 scrim-alpha      = 0.5
 # accent is the lock-icon glyph color + text-selection tint.
-accent           = "#4edada"
+accent           = "#39ff14"
 
 [lock]
 # Lock screen password input. background/background-alpha control the
@@ -220,7 +220,7 @@ border-active    = "hyprland.active-border"
 border-error     = "#ff3333"
 border-alpha     = 1.0
 # selection is the text-selection tint inside the input field.
-selection        = "#4edada"
+selection        = "#39ff14"
 selection-alpha  = 0.45
 
 [image-picker]
@@ -231,7 +231,7 @@ selection-alpha  = 0.45
 scrim                   = "#050805"
 scrim-alpha             = 0.5
 text                    = "#c8ffc8"
-selected-border         = "#4edada"
+selected-border         = "#39ff14"
 selected-border-alpha   = 1.0
 unselected-border       = "#c8ffc8"
 unselected-border-alpha = 0.28

@@ -1,6 +1,6 @@
 # 0xPrivacy
 
-Full Omarchy theme. Default is the live desktop: near-black field, phosphor `#39ff14`, trust blue `#4edada`, rose `0x`, the Lockup wallpaper, the glitch screensaver, and the green `0xPrivacy-Phosphor` icon set.
+Full Omarchy theme. Default is the live desktop: near-black field, phosphor `#39ff14`, phosphor green, rose `0x`, the Lockup wallpaper, the glitch screensaver, and the green `0xPrivacy-Phosphor` icon set.
 
 The palette comes from `privacy-tokens.json` v1.5. `colors.toml` is the single source of truth: Omarchy's renderer derives the terminal, editor, Hyprland, and Hermes skins from it, and `lucas.system-pulse` reads the active theme's `colors.toml` at runtime for its statusline inks.
 
@@ -47,7 +47,7 @@ Bar text and menu selection are `#39ff14`. Window borders run phosphor to trust 
 |---|---|---|---|
 | CPU | `green` / `color2` | `#39ff14` | 14.84:1 |
 | Memory | `magenta` / `color5` | `#7cff7c` | 15.77:1 |
-| GPU | `blue` / `color4` | `#4edada` | 11.85:1 |
+| GPU | `blue` / `color4` | `#00ff41` | 14.84:1 |
 | Heat | `yellow` / `color3` | `#ffff99` | 19.18:1 |
 | Disk | `cyan` / `color6` | `#a0ecec` | 15.05:1 |
 

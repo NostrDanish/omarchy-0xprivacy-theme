@@ -24,7 +24,7 @@ mode: "dark"
 # --- metric inks (colors.toml named key -> plugin role) ---
 cpu: "#39ff14"       # phosphor.dark          -> green  / color2
 memory: "#7cff7c"    # phosphorMuted.dark     -> magenta / color5
-gpu: "#4edada"       # accent.dark            -> blue   / color4
+gpu: "#00ff41"      # phosphorDim.dark       -> blue   / color4
 heat: "#ffff99"      # warning.dark           -> yellow / color3
 disk: "#a0ecec"      # accentActive.dark      -> cyan   / color6
 
