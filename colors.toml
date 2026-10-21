@@ -61,7 +61,7 @@ warning = "#ff9f00"
 success = "#39ff14"
 
 selection = "#0a1a0a"
-muted = "#6d8f80"
+muted = "#1c770c"
 
 dark_background = "#010502"
 darker_background = "#000000"
