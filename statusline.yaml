@@ -1,7 +1,9 @@
 # 0xPrivacy — lucas.system-pulse statusline color mappings
-# Derived from privacy-tokens.json v1.5 (dark mode)
-# Accent: cyan-shifted trust blue #4edada
+# Derived from privacy-tokens.json v1.5 (dark mode), with the accent and the
+# cyan slots shifted onto the phosphor family for the 80s hacker aesthetic.
+# Accent: phosphor #39ff14
 # Phosphor: matrix green #39ff14 / #00ff41 / #7cff7c
+# Heat: amber #ff9f00
 #
 # HOW THIS THEME ACTUALLY REACHES THE STATUSLINE
 #
@@ -24,14 +26,14 @@ mode: "dark"
 # --- metric inks (colors.toml named key -> plugin role) ---
 cpu: "#39ff14"       # phosphor.dark          -> green  / color2
 memory: "#7cff7c"    # phosphorMuted.dark     -> magenta / color5
-gpu: "#00ff41"      # phosphorDim.dark       -> blue   / color4
-heat: "#ffff99"      # warning.dark           -> yellow / color3
-disk: "#a0ecec"      # accentActive.dark      -> cyan   / color6
+gpu: "#c8ffc8"       # foreground.dark        -> blue   / color4
+heat: "#ff9f00"      # warning.dark (amber)   -> yellow / color3
+disk: "#2f9a2f"      # dim phosphor tier      -> cyan   / color6
 
 # --- shared accents ---
-accent: "#4edada"        # accent.dark
-accent_hover: "#7ae5e5"  # accentHover.dark
-accent_active: "#a0ecec" # accentActive.dark
+accent: "#39ff14"        # accent.dark
+accent_hover: "#7cff7c"  # accentHover.dark
+accent_active: "#c8ffc8" # accentActive.dark
 
 # --- phosphor family ---
 phosphor: "#39ff14"      # phosphor.dark
@@ -44,23 +46,23 @@ background_elevated: "#0c140c"# backgroundElevated.dark
 background_hover: "#0a1a0a"   # backgroundHover.dark
 
 # --- text ---
-foreground: "#c8ffc8"        # foreground.dark
+foreground: "#e8ffe8"        # foreground.dark
 foreground_muted: "#7cff7c"  # foregroundMuted.dark
 foreground_subtle: "#5aff5a" # foregroundSubtle.dark
 
 # --- lines and focus ---
 border: "#1a4a1a"      # border.dark
-border_focus: "#4edada"# borderFocus.dark
+border_focus: "#39ff14"# borderFocus.dark
 
 # --- semantic states ---
 error: "#ff5555"   # error.dark
-warning: "#ffff99" # warning.dark
+warning: "#ff9f00" # warning.dark
 success: "#39ff14" # success.dark
 
 # --- Omarchy shell surface roles (Color.qml) ---
 # The shell's own bar/popup chrome follows the active colors.toml and the
 # theme's shell.toml, so these stay in step with the metric inks above.
-shell_accent: "#4edada" # accent
+shell_accent: "#39ff14" # accent
 shell_foreground: "#c8ffc8"
 shell_background: "#050805"
 shell_muted: "#6d8f80"

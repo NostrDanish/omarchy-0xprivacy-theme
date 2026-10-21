@@ -223,24 +223,24 @@ historyPeer1UserpicBg: #39ff14;; // red userpic background
 historyPeer2NameFg: #00ff41;; // green group member name
 historyPeer2NameFgSelected: #c8ffc8;; // green group member name in a selected message
 historyPeer2UserpicBg: #00ff41;; // green userpic background
-historyPeer3NameFg: #4edada;; // yellow group member name
+historyPeer3NameFg: #c8ffc8;; // yellow group member name
 historyPeer3NameFgSelected: #c8ffc8;; // yellow group member name in a selected message
-historyPeer3UserpicBg: #4edada;; // yellow userpic background (actually unused)
+historyPeer3UserpicBg: #c8ffc8;; // yellow userpic background (actually unused)
 historyPeer4NameFg: #7cff7c;; // blue group member name
 historyPeer4NameFgSelected: #c8ffc8;; // blue group member name in a selected message
 historyPeer4UserpicBg: #7cff7c;; // blue userpic background
 historyPeer5NameFg: #00ff41;; // purple group member name
 historyPeer5NameFgSelected: #c8ffc8;; // purple group member name in a selected message
 historyPeer5UserpicBg: #00ff41;; // purple userpic background
-historyPeer6NameFg: #4edada;; // pink group member name
+historyPeer6NameFg: #c8ffc8;; // pink group member name
 historyPeer6NameFgSelected: #c8ffc8;; // pink group member name in a selected message
-historyPeer6UserpicBg: #4edada;; // pink userpic background
+historyPeer6UserpicBg: #c8ffc8;; // pink userpic background
 historyPeer7NameFg: #c8ffc8;; // sea group member name
 historyPeer7NameFgSelected: #c8ffc8;; // sea group member name in a selected message
 historyPeer7UserpicBg: #c8ffc8;; // sea userpic background
-historyPeer8NameFg: #7ae5e5;; // orange group member name
+historyPeer8NameFg: #e8ffe8;; // orange group member name
 historyPeer8NameFgSelected: #c8ffc8;; // orange group member name in a selected message
-historyPeer8UserpicBg: #7ae5e5;; // orange userpic background
+historyPeer8UserpicBg: #e8ffe8;; // orange userpic background
 historyPeerUserpicFg: #c8ffc8;; // default userpic initials
 historyScrollBarBg: #0c140c;; // scroll bar current rectangle, the bar itself in the chat view (adjusted)
 historyScrollBarBgOver: #0a1a0a;; // scroll bar current rectangle with mouse over it in the chat view (adjusted)
@@ -248,12 +248,12 @@ historyScrollBg: #0c140c;; // scroll bar background (adjusted)
 historyScrollBgOver: #0a1a0a;; // scroll bar background with mouse over the scroll bar (adjusted)
 historyPeer1UserpicBg2: #39ff14;; // the second red userpic background
 historyPeer2UserpicBg2: #00ff41;; // the second green userpic background
-historyPeer3UserpicBg2: #4edada;; // the second yellow userpic background (actually unused)
+historyPeer3UserpicBg2: #c8ffc8;; // the second yellow userpic background (actually unused)
 historyPeer4UserpicBg2: #7cff7c;; // the second blue userpic background
 historyPeer5UserpicBg2: #00ff41;; // the second purple userpic background
-historyPeer6UserpicBg2: #4edada;; // the second pink userpic background
+historyPeer6UserpicBg2: #c8ffc8;; // the second pink userpic background
 historyPeer7UserpicBg2: #c8ffc8;; // the second sea userpic background
-historyPeer8UserpicBg2: #7ae5e5;; // the second orange userpic background
+historyPeer8UserpicBg2: #e8ffe8;; // the second orange userpic background
 historyPeerSavedMessagesBg2: #0c140c;; // the second saved messages userpic background
 msgInBg: #0c140c;; // inbox message background
 msgInBgSelected: #1a4a1a;; // inbox selected message background (and background of selected text in those messages)
@@ -401,7 +401,7 @@ mediaviewFileBg: #0c140c;; // file rectangle background (when you view a png fil
 mediaviewFileNameFg: #c8ffc8;; // file name in file rectangle
 mediaviewFileSizeFg: #7cff7c;; // file size text in file rectangle
 mediaviewFileRedCornerFg: #ff3333;; // red file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .pdf)
-mediaviewFileYellowCornerFg: #7ae5e5;; // yellow file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .zip)
+mediaviewFileYellowCornerFg: #e8ffe8;; // yellow file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .zip)
 mediaviewFileGreenCornerFg: #39ff14;; // green file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .exe)
 mediaviewFileBlueCornerFg: #00ff41;; // blue file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .dmg)
 mediaviewFileExtFg: #c8ffc8;; // file extension text in file thumbnail placeholder in file rectangle

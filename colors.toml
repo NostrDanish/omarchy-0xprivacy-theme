@@ -1,18 +1,19 @@
 mode = "dark"
 
-# 0xPrivacy — phosphor mainframe. 80s hacker green aesthetic: phosphor dominates,
-# trust blue is gone from the theme chrome.
+# 0xPrivacy — 80s hacker phosphor. Monochrome green CRT: one green hue at
+# several brightness tiers, amber for heat, red for alarms. The trust blue
+# accent is gone from the theme entirely.
 # Palette from src/assets/privacy-tokens.json v1.5 (dark mode), with the accent
-# shifted from trust blue #4edada back to phosphor #39ff14 per design direction.
+# and the cyan slots shifted onto the phosphor family per design direction.
 #
-# Token mapping (base + semantic values are token-exact):
+# Token mapping (base + semantic values are token-exact unless noted):
 #   accent #39ff14 (was #4edada — shifted to phosphor for 80s hacker green)
-#   accentHover #7cff7c / accentActive #a0ecec
+#   accentHover #7cff7c / accentActive #c8ffc8
 #   phosphor #39ff14 / phosphorDim #00ff41 / phosphorMuted #7cff7c
-#   foreground #c8ffc8 / foregroundMuted #7cff7c / foregroundSubtle #5aff5a
+#   foreground #e8ffe8 / foregroundMuted #7cff7c / foregroundSubtle #5aff5a
 #   background #050805 / backgroundElevated #0c140c / backgroundHover #0a1a0a
 #   border #1a4a1a / borderFocus #39ff14
-#   error #ff5555 / warning #ffff99 / success #39ff14
+#   error #ff5555 / warning #ff9f00 (amber, not the token's #ffff99) / success #39ff14
 #
 # The ANSI ladder mirrors those token families, and every named key holds the
 # same value as its colorN twin. That matters for the statusline:
@@ -20,15 +21,26 @@ mode = "dark"
 # fallback (cpu green/color2, memory magenta/color5, gpu blue/color4, heat
 # yellow/color3, disk cyan/color6), so the two paths must agree.
 #
-# The five metric inks are hue-separated on purpose: phosphor / phosphorMuted /
-# blue / warning / accentActive. Upstream's color4 was #0a3d27, a near-black
-# surface tone that made the GPU reading 1.71:1 against the bar — invisible.
-# The GPU uses phosphorDim #00ff41 — a medium green, distinct from CPU (bright)
-# and MEM (light) by lightness. Fully monochromatic green for the 80s hacker look.
+# METRIC INKS — a brightness ramp, the way a mono-green CRT separated data.
+# A green screen has one hue at several intensities, so the ramp steps
+# lightness instead of hue:
+#   cpu    #39ff14  phosphor hero  14.84:1 on the bar
+#   memory #7cff7c  light tier    15.77:1
+#   gpu    #c8ffc8  pale tier     17.82:1
+#   heat   #ff9f00  amber          9.79:1
+#   disk   #2f9a2f  dim tier       5.54:1
+# Adjacent readings in bar order are at least 36 dE apart, so one metric never
+# reads as the next. A real green screen had one hue at a few intensities, and
+# a four-way hue split simply is not resolvable at caption size. Upstream's
+# color4 was #0a3d27, a near-black surface tone that made the GPU reading
+# 1.71:1 against the bar — invisible.
+#
+# Amber for heat is not a modern choice: dual-phosphor terminals of the era
+# ran green for data and amber for status and warnings.
 
 accent = "#39ff14"
 accentHover = "#7cff7c"
-accentActive = "#a0ecec"
+accentActive = "#c8ffc8"
 
 phosphor = "#39ff14"
 phosphorDim = "#00ff41"
@@ -40,12 +52,12 @@ backgroundHover = "#0a1a0a"
 border = "#1a4a1a"
 borderFocus = "#39ff14"
 
-foreground = "#c8ffc8"
+foreground = "#e8ffe8"
 foregroundMuted = "#7cff7c"
 foregroundSubtle = "#5aff5a"
 
 error = "#ff5555"
-warning = "#ffff99"
+warning = "#ff9f00"
 success = "#39ff14"
 
 selection = "#0a1a0a"
@@ -57,44 +69,44 @@ lighter_background = "#0c140c"
 
 dark_foreground = "#00ff41"
 light_foreground = "#7cff7c"
-bright_foreground = "#c8ffc8"
+bright_foreground = "#f2fff4"
 
 cursor = "#39ff14"
 selection_foreground = "#050805"
 selection_background = "#39ff14"
 
-hyprland_active_border = "rgba(39ff14ee) rgba(ff9f00ee) 45deg"
+hyprland_active_border = "rgba(39ff14ee) rgba(00ff41ee) 45deg"
 hyprland_inactive_border = "rgba(1a4a1a99)"
 
 color0 = "#050805"
 color1 = "#ff3333"
 color2 = "#39ff14"
-color3 = "#ffff99"
-color4 = "#00ff41"
+color3 = "#ff9f00"
+color4 = "#c8ffc8"
 color5 = "#7cff7c"
-color6 = "#a0ecec"
-color7 = "#c8ffc8"
+color6 = "#2f9a2f"
+color7 = "#e8ffe8"
 color8 = "#1a4a1a"
 color9 = "#ff5555"
 color10 = "#7cff7c"
-color11 = "#ffff99"
-color12 = "#7ae5e5"
-color13 = "#c8ffc8"
-color14 = "#a0ecec"
-color15 = "#ffffff"
+color11 = "#ffb84d"
+color12 = "#c8ffc8"
+color13 = "#e8ffe8"
+color14 = "#2f9a2f"
+color15 = "#f2fff4"
 
 red = "#ff3333"
-yellow = "#ffff99"
-orange = "#ff9f00"
+yellow = "#ff9f00"
+orange = "#ff6600"
 green = "#39ff14"
-cyan = "#a0ecec"
-blue = "#00ff41"
+cyan = "#2f9a2f"
+blue = "#c8ffc8"
 magenta = "#7cff7c"
-brown = "#2a6b2a"
+brown = "#2f9a2f"
 
 bright_red = "#ff5555"
-bright_yellow = "#ffff99"
+bright_yellow = "#ffb84d"
 bright_green = "#7cff7c"
-bright_cyan = "#a0ecec"
-bright_blue = "#7ae5e5"
-bright_magenta = "#c8ffc8"
+bright_cyan = "#2f9a2f"
+bright_blue = "#c8ffc8"
+bright_magenta = "#e8ffe8"

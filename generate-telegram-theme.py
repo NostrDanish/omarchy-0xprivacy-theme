@@ -22,8 +22,8 @@ UPSTREAM_URL = (
     f"{UPSTREAM_COMMIT}/Telegram/Resources/night-green.tdesktop-theme"
 )
 
-# 0xPrivacy roles from privacy-tokens.json v1.5 (dark mode): phosphor green
-# for the privacy indicators, cyan-shifted trust blue for the accent family.
+# 0xPrivacy roles from privacy-tokens.json v1.5 (dark mode): 80s hacker phosphor.
+# Monochromatic green with amber for heat and red for alarms.
 BG = "#050805"            # background.dark
 BG_DARK = "#010502"       # near-black structural step
 BG_SURFACE = "#0c140c"    # backgroundElevated.dark
@@ -39,8 +39,11 @@ ACCENT = "#39ff14"        # phosphor.dark
 ACCENT_BRIGHT = "#7cff7c" # phosphorMuted.dark
 ACCENT_DEEP = "#1a4a1a"   # border.dark
 ACCENT_GREEN = "#00ff41"  # phosphorDim.dark
-ACCENT_TRUST = "#4edada"   # accent.dark
-ACCENT_TRUST_BRIGHT = "#7ae5e5" # accentHover.dark
+ACCENT_TRUST = "#c8ffc8"  # foreground.dark — pale tier
+ACCENT_TRUST_BRIGHT = "#e8ffe8" # bright foreground
+ACCENT_DIM = "#2f9a2f"    # dim phosphor tier
+AMBER = "#ff9f00"         # warning — heat signal
+AMBER_BRIGHT = "#ffb84d"  # bright amber
 RED = "#ff3333"
 RED_BRIGHT = "#ff5555"    # error.dark
 
@@ -90,7 +93,7 @@ MUTED_FG_EXACT = {
 }
 
 USERPIC = [ACCENT, ACCENT_GREEN, ACCENT_TRUST, ACCENT_BRIGHT,
-           "#00ff41", "#4edada", TEXT, "#7ae5e5"]
+           "#00ff41", "#c8ffc8", TEXT, "#e8ffe8"]
 FALLBACK_KEYS: list[str] = []
 
 

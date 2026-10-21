@@ -2,7 +2,7 @@
 
 **`0xPrivacy-Phosphor.tdesktop-theme`** is the importable Telegram Desktop theme bundle. It contains a complete 467-entry `colors.tdesktop-theme` palette and a custom low-contrast phosphor-grid chat background.
 
-The palette follows the 0xPrivacy dark-web theme: deep green-black `#020804`, forest-green surfaces `#09180e`, neon green `#39ff14`, pale-green text `#c7f5ce`, and rose-red `#ff2e63` signal accents. The color-key schema is based on Telegram Desktop's official `night-green.tdesktop-theme` at commit `1e66d5874c973b9b573492796cbb641152c03f3c`.
+The palette follows the 0xPrivacy 80s hacker theme: deep green-black `#050805`, raised green surfaces `#0c140c`, neon green `#39ff14`, pale-green text `#c8ffc8`, amber `#ff9f00` for heat, and red `#ff3333` for errors. The color-key schema is based on Telegram Desktop's official `night-green.tdesktop-theme` at commit `1e66d5874c973b9b573492796cbb641152c03f3c`.
 
 ## Apply in Telegram Desktop
 

@@ -47,8 +47,8 @@ Bar text and menu selection are `#39ff14`. Window borders run phosphor to trust 
 |---|---|---|---|
 | CPU | `green` / `color2` | `#39ff14` | 14.84:1 |
 | Memory | `magenta` / `color5` | `#7cff7c` | 15.77:1 |
-| GPU | `blue` / `color4` | `#00ff41` | 14.84:1 |
-| Heat | `yellow` / `color3` | `#ffff99` | 19.18:1 |
-| Disk | `cyan` / `color6` | `#a0ecec` | 15.05:1 |
+| GPU | `blue` / `color4` | `#c8ffc8` | 17.82:1 |
+| Heat | `yellow` / `color3` | `#ff9f00` | 9.85:1 |
+| Disk | `cyan` / `color6` | `#2f9a2f` | 5.54:1 |
 
 `statusline.yaml` mirrors this table as a human-readable record. It does not drive the widget.
